@@ -15,9 +15,14 @@ I also will place a Wiki up with both information on how to build, as well as ho
 
 ### Branch naming conventions
 
-Each branch will be named **&lt;Version>-Description** With 00-Template as the initial checkin as well as template build, and master being my most recent version.
+Each branch will be named **&lt;Version>.Description** With 00.Template as the initial checkin as well as template build, and master being my most recent version.
 
 The Wiki will have a page describing what occured as each step is made.
+
+Initial Branches
+
+00.Template - Initial checkin.
+01.Configuration - Initial project configuration in Visual Studio
 
 
 
