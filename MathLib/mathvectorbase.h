@@ -60,19 +60,19 @@ namespace MathLib {
 
 			return result;
 		}
-		void print() {
-			using namespace std;
-			cout << "{ "
-			for (i = 0; i < size; ++i) {
-				if (i) cout << ", ";
-				cout arr[i];
-			}
-			cout << " }" << endl;
-		}
-		friend std::ostream& operator<<(std::ostream& os, const MathVectorBase& item);
+		template<typename T> friend std::ostream& operator<<(std::ostream& os, const MathVectorBase<T>& item);
 	};
 
-	std::ostream& operator<<(std::ostream& os, const MathVectorBase& item);
+	template <typename T> std::ostream& operator<<(std::ostream& os, const MathVectorBase<T>& item) {
+		using namespace std;
+		os << "{ ";
+		for (size_t i = 0; i < item.size; ++i) {
+			if (i) os << ", ";
+			os << item.arr[i];
+		}
+		os << " }";
 
+		return os;
+	}
 }
 
