@@ -1,0 +1,9 @@
+# GitIgnore Template - V1.2
+.vs/*
+# Visual Studio Directories
+**/x64
+**/Debug/*
+# gcc build stuff
+**/.sw?
+**/*.bak
+**/build/*
