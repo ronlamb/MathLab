@@ -60,23 +60,19 @@ namespace MathLib {
 
 			return result;
 		}
-		friend std::ostream& operator<<(std::ostream& os, const MathVectorBase& item);
+		template<typename T> friend std::ostream& operator<<(std::ostream& os, const MathVectorBase<T>& item);
 	};
 
-
 	template <typename T> std::ostream& operator<<(std::ostream& os, const MathVectorBase<T>& item) {
-		using MathVectorBase<T>::arr;
-		using MathVectorBase<T>::size;
 		using namespace std;
 		os << "{ ";
-		for (size_t i = 0; i < size; ++i) {
+		for (size_t i = 0; i < item.size; ++i) {
 			if (i) os << ", ";
-			os << arr[i];
+			os << item.arr[i];
 		}
 		os << " }";
 
 		return os;
 	}
-
 }
 
