@@ -35,7 +35,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mathlab.cpp">
+    <ClCompile Include="mathlib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="matrixbase.cpp">

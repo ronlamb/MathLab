@@ -13,5 +13,5 @@ int main()
 	MatrixBase<double> mat(3);
 	MathVectorBase<double> vect = { 1.0, 2.0, 3.0, 4.0 };
 
-	cout << "Vector: " << vect;
+	cout << "Vector: " << vect << endl;
 }
