@@ -2,10 +2,12 @@
 //
 
 #include <iostream>
+#include "matrixbase.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	using namespace MathLib;
+	MatrixBase<double> mat(3);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
