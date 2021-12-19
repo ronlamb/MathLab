@@ -24,15 +24,27 @@
     <ClInclude Include="matrixbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mathvectorbase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mathexception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mathlab.cpp">
+    <ClCompile Include="mathlib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="matrixbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mathvectorbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mathexception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
