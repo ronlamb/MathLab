@@ -4,14 +4,12 @@
 #include <iostream>
 #include <vector>
 #include "matrixbase.h"
-#include "mathvectorbase.h"
+#include "vector_functions.h"
 
 int main()
 {
 	using namespace MathLib;
 	using namespace std;
 	MatrixBase<double> mat(3);
-	MathVectorBase<double> vect = { 1.0, 2.0, 3.0, 4.0 };
-
-	cout << "Vector: " << vect << endl;
+	simpleVectorDotProduct();
 }
