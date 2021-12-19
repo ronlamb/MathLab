@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathLab", "MathLab\MathLab.vcxproj", "{4290B5D0-AC49-4847-A830-65AF030B2FA2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F9E4F238-626E-4DF4-B87E-36DD93790124} = {F9E4F238-626E-4DF4-B87E-36DD93790124}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathLib", "MathLib\MathLib.vcxproj", "{F9E4F238-626E-4DF4-B87E-36DD93790124}"
 EndProject
