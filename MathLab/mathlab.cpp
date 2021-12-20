@@ -5,11 +5,15 @@
 #include <vector>
 #include "matrixbase.h"
 #include "vector_functions.h"
+#include "instrumentation.h"
+
+using namespace MathLib;
+using namespace std;
 
 int main()
 {
-	using namespace MathLib;
-	using namespace std;
 	MatrixBase<double> mat(3);
 	simpleVectorDotProduct();
+	vectorTime(1000);
+	Instrumentation::printResults();
 }

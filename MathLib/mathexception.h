@@ -18,7 +18,6 @@ namespace MathLib {
 		{
 			return message.c_str();
 		}
-
 	};
-};
+}
 

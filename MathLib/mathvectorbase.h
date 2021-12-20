@@ -3,6 +3,7 @@
 #include <iostream>
 #include <ostream>
 #include "mathexception.h"
+
 namespace MathLib {
 	template <typename T>
 	class MathVectorBase
@@ -19,8 +20,7 @@ namespace MathLib {
 		MathVectorBase(const std::initializer_list<T>& list):MathVectorBase(list.size()) {
 			size_t i = 0;
 			for (auto element : list) {
-				arr[i] = element;
-				++i;
+				arr[i++] = element;
 			}
 		}
 
@@ -33,6 +33,10 @@ namespace MathLib {
 		//MathVectorBase<T>& operator=(const vector<T> &vect) {
 		//	return MathVectorBase<T>(&vect);
 		//}
+
+		T& operator[](size_t i) {
+			return arr[i];
+		}
 
 		T dotProduct(MathVectorBase<T>& v) {
 			using namespace std;
