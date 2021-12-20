@@ -30,6 +30,9 @@
     <ClInclude Include="mathexception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="instrumentation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mathexception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="instrumentation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="instrumentation.h" />
     <ClInclude Include="mathexception.h" />
     <ClInclude Include="matrixbase.h" />
     <ClInclude Include="framework.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="mathvectorbase.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="instrumentation.cpp" />
     <ClCompile Include="mathexception.cpp" />
     <ClCompile Include="matrixbase.cpp" />
     <ClCompile Include="mathlib.cpp" />
