@@ -8,9 +8,9 @@ namespace MathLib {
 	template <typename T>
 	class MathVectorBase
 	{
-	private:
-		T* arr;
+	protected:
 		size_t size;
+		T* arr;
 
 	public:
 		// Base constructor

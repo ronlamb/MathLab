@@ -108,13 +108,13 @@ public:
 
 	static void printResults() {
 		using namespace std;
-		cout << "Item                Total Time                  # Runs     Average" << endl;
-		cout << "------------------- --------------------------- ---------- ---------------------------" << endl;
+		cout << "Item                            Total Time                  # Runs     Average" << endl;
+		cout << "------------------------------- --------------------------- ---------- ---------------------------" << endl;
 		
 		std::unordered_map<const std::string, Instrumentation>::iterator it = timers.begin();
 		while (it != timers.end()) {
 			Instrumentation& item = it->second;
-			cout << left << setw(18) << it->first << ": " << it->second << endl;
+			cout << left << setw(30) << it->first << ": " << it->second << endl;
 			it++;
 		}
 	}

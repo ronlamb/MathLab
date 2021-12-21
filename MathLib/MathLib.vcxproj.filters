@@ -33,6 +33,9 @@
     <ClInclude Include="instrumentation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="thread_vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="instrumentation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="thread_vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
