@@ -75,6 +75,7 @@ namespace MathLib {
 		for (size_t i = 0; i < item.size; ++i) {
 			if (i) os << ", ";
 			os << item.arr[i];
+			if (i && i % 8 == 0) os << endl;
 		}
 		os << " }";
 

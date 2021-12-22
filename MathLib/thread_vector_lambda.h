@@ -1,24 +1,25 @@
 #pragma once
-/* Initial threaded version of the Vector class.
+/* Enhancement to ThreadVector to run the threads in a lambda instead of in 
+ * a separate static function.
  *
  * The template takes as parameters:
- *	typename T				The type (double, long double) 
+ *	typename T				The type (double, long double)
  *	size_t MIN_SLICE_SIZE	The minimum slice size, defaults to 10
  *	size_t MAX_THREADS		The maximum number of threads
- * 
+ *
  * It will calculate the number of threads needed to run with at least the minimum
  * slice size.  The class will spawn up to the calculated number of threads - 1
- * threads. 
+ * threads.
  *
- * If the size is less than MIN_SLICE_SIZE then it will only run in the current 
+ * If the size is less than MIN_SLICE_SIZE then it will only run in the current
  * thread, and not spawn any more threads.
  */
 #include "mathvectorbase.h"
 #include "mathexception.h"
 #include <thread>
 namespace MathLib {
-	template <typename T, size_t MIN_SLICE_SIZE=10, size_t MAX_THREADS=0>
-	class ThreadVector : public MathVectorBase<T>
+	template <typename T, size_t MIN_SLICE_SIZE = 10, size_t MAX_THREADS = 0>
+	class ThreadVectorLambda : public MathVectorBase<T>
 	{
 	protected:
 		using MathVectorBase<T>::size;
@@ -33,7 +34,6 @@ namespace MathLib {
 
 			if (num_threads > std::thread::hardware_concurrency() || num_threads == 0) {
 				num_threads = std::thread::hardware_concurrency();
-				//std::cout << "Setting thread count to " << num_threads << std::endl;
 			}
 
 			size_t num_slices = size / MIN_SLICE_SIZE;
@@ -45,23 +45,20 @@ namespace MathLib {
 			}
 		}
 	public:
-		ThreadVector(size_t size) :MathVectorBase<T>(size) {
-			//std::cout << "ThreadVector(size_t size)" << std::endl;
+		ThreadVectorLambda(size_t size) :MathVectorBase<T>(size) {
 			setNumThreads();
 		}
 
-		ThreadVector() :MathVectorBase<T>() {
-			//std::cout << "ThreadVector()" << std::endl;
+		ThreadVectorLambda() :MathVectorBase<T>() {
 			setNumThreads();
 		}
 
-		ThreadVector(const std::initializer_list<T>& list):MathVectorBase<T>(list) {
-			//std::cout << "ThreadVector(const std::initializer_list<T>& list)" << std::endl;
+		ThreadVectorLambda(const std::initializer_list<T>& list) :MathVectorBase<T>(list) {
 			setNumThreads();
 		}
-		~ThreadVector() {}
+		~ThreadVectorLambda() {}
 
-		T dotProduct(ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS>& v) {
+		T dotProduct(ThreadVectorLambda<T, MIN_SLICE_SIZE, MAX_THREADS>& v) {
 			using namespace std;
 			if (v.size != size) {
 				throw MathException(VECTOR_SIZES_MUST_BE_THE_SAME);
@@ -77,13 +74,26 @@ namespace MathLib {
 				size_t slice = size / num_threads;
 				size_t end = begin + slice;
 				for (size_t i = 0; i < num_threads - 1; ++i) {
-					thd.push_back(std::thread(dpSlice, this, &v, begin, end, result, i));
+					thd.push_back(std::thread([=,&result, &v]() {
+						T sum = 0.0;
+						for (size_t j = begin; j < end; ++j) {
+							sum += arr[j] * v.arr[j];
+						}
+						result[i] = sum;
+					}));
 					begin = end;
 					end += slice;
 				}
 			}
-			// Run the last slice in order
-			dpSlice(this, &v, begin, size, result, num_threads - 1);
+
+			// Run the last slice in the current thread
+			T sum = 0.0;
+			for (size_t j = begin; j < size; ++j) {
+				sum += arr[j] * v.arr[j];
+			}
+			result[num_threads - 1] = sum;
+
+			//std::cout << "range " << begin << " to " << size << " sum=" << sum << std::endl;
 
 			if (num_threads > 1) {
 				for (std::thread& t : thd) {
@@ -93,27 +103,13 @@ namespace MathLib {
 				}
 			}
 
-			T sum = 0.0;
-			//cout << "num_threads = " << num_threads << endl;
+			// Sum up the slice results
+			sum = 0.0;
 			for (size_t i = 0; i < num_threads; ++i) {
 				sum += result[i];
 			}
-			//cout << "sum: " << sum << endl;
 
 			return sum;
-		}
-
-	private:
-		static void dpSlice(ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS> *v1, 
-							ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS> *v2, 
-							size_t begin, size_t end, std::shared_ptr<T[]> const &result, size_t ndx) 
-		{
-			T sum = 0.0;
-			for (size_t i = begin; i < end; ++i) {
-				sum+= v1->arr[i] * v2->arr[i];
-			}
-			//std::cout << "sum[" << ndx << "]=" << sum << std::endl;
-			result[ndx] = sum;
 		}
 	};
 };
