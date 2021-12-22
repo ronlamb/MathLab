@@ -13,9 +13,10 @@ using namespace std;
 int main()
 {
 	MatrixBase<double> mat(3);
-	simpleVectorDotProduct();
+	//simpleVectorDotProduct();
+	thdVectorDotProduct();
 	size_t vector_len = 10000000;
-	vectorTime(100000000);
-	threadVectorTime(100000000);
+	//vectorTime(100000000);
+	//threadVectorTime(100000000);
 	Instrumentation::printResults();
 }

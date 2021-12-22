@@ -13,6 +13,8 @@ namespace MathLib {
 		T* arr;
 
 	public:
+		MathVectorBase() :size(3), arr(new T[3]{}) {}
+
 		// Base constructor
 		MathVectorBase(size_t size) :size(size), arr(new T[size]{}) {}
 
