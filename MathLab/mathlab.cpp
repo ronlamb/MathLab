@@ -12,8 +12,12 @@ using namespace std;
 
 int main()
 {
-	MatrixBase<double> mat(3);
-	simpleVectorDotProduct();
-	vectorTime(1000);
+	//MatrixBase<double> mat(3);
+	vectorPerformance();
+	////simpleVectorDotProduct();
+	//thdVectorDotProduct();
+	//size_t vector_len = 10000000;
+	////vectorTime(100000000);
+	////threadVectorTime(100000000);
 	Instrumentation::printResults();
 }

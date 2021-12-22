@@ -4,6 +4,6 @@
 **/x64
 **/Debug/*
 # gcc build stuff
-**/.sw?
+**/*.sw?
 **/*.bak
 **/build/*

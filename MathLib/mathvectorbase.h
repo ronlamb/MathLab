@@ -8,11 +8,13 @@ namespace MathLib {
 	template <typename T>
 	class MathVectorBase
 	{
-	private:
-		T* arr;
+	protected:
 		size_t size;
+		T* arr;
 
 	public:
+		MathVectorBase() :size(3), arr(new T[3]{}) {}
+
 		// Base constructor
 		MathVectorBase(size_t size) :size(size), arr(new T[size]{}) {}
 
@@ -73,6 +75,7 @@ namespace MathLib {
 		for (size_t i = 0; i < item.size; ++i) {
 			if (i) os << ", ";
 			os << item.arr[i];
+			if (i && i % 8 == 0) os << endl;
 		}
 		os << " }";
 

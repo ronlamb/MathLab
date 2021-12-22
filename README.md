@@ -25,6 +25,14 @@ Initial Branches
 01.Configuration - Initial project configuration in Visual Studio
 
 
+## Timings
 
+**Ryzen 5900X with 64 GB Memory**
 
-
+<table>
+<tr><th>Item</th><th>Total Time</th><th># Runs</th><th>Average</th></th>
+<tr><td>vector 100000000</td><td style="text-align:right">25.717 seconds</td><td>100</td><td style="text-align:right">257 ms</td></tr>
+<tr><td>thdvector 100000000</td><td style="text-align:right">4.777 seconds</td><td>100</td><td style="text-align:right">47 ms</td></tr>
+<tr><td>lambdavector 100000000</td><td style="text-align:right">4.869 seconds</td><td>100</td><td style="text-align:right">48 ms</td></tr>
+<td>ompvector 100000000</td><td style="text-align:right">3.934 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
+</table>

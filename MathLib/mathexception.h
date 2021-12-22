@@ -6,6 +6,7 @@ namespace MathLib {
 	const extern std::string MUST_BE_A_SQUARE;
 	const extern std::string VECTOR_SIZES_MUST_BE_THE_SAME;
 	const extern std::string CROSS_PRODUCTS_NOT_3D;
+	const extern std::string NUM_THREADS_LT_0;
 
 	class MathException : public std::exception {
 	protected:
