@@ -125,6 +125,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -143,6 +144,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -161,6 +163,7 @@
     <ClInclude Include="mathvectorbase.h" />
     <ClInclude Include="thread_vector.h" />
     <ClInclude Include="thread_vector_lambda.h" />
+    <ClInclude Include="thread_vector_omp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="instrumentation.cpp" />
@@ -176,6 +179,7 @@
     <ClCompile Include="mathvectorbase.cpp" />
     <ClCompile Include="thread_vector.cpp" />
     <ClCompile Include="thread_vector_lambda.cpp" />
+    <ClCompile Include="thread_vector_omp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
