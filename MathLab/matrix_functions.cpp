@@ -30,11 +30,36 @@ template <typename T> void matrixProduct() {
 	 * -1, 5, 17, -8, 11, -7
 	 */
 	T result(4, 6);
-	cout << m1.Product(m2, result) << endl;
+	cout << m1.product(m2, result) << endl;
+}
+template <typename T, typename Y> void luDcmp() {
+	T mat = {
+		{ 1, 2, 5, -2, 3, -1},
+		{ 0, 1, 2, 1, 2, 2},
+		{ 1, 0, 1, 1, 1, 1},
+		{ 2, 1, 0, 1, 2, 2},
+		{ 3, 2, 1, 0, 1, 2},
+		{ 1, 2, 3, -1, -2 ,-3}
+	};
+
+	using namespace std;
+	T dcmp = {
+		{ 1, 2, 5, -2, 3, -1},
+		{ 0, 1, 2, 1, 2, 2},
+		{ 1, 0, 1, 1, 1, 1},
+		{ 2, 1, 0, 1, 2, 2},
+		{ 3, 2, 1, 0, 1, 2},
+		{ 1, 2, 3, -1, -2 ,-3}
+	};
+
+	cout << "dcmp:\n" << dcmp << endl;
+	cout << "Det = " << mat.determinate() << endl;
+	Y indx[6];
+	cout << "Det" << dcmp.ludcmp(indx) << endl;
 }
 void matrixPerformance() {
-	matrixProduct<MatrixBase<double>>();
-
+	//matrixProduct<MatrixBase<double>>();
+	luDcmp<MatrixBase<double>, double>();
 	//vectorDotProduct<MathVectorBase<double>>();
 	//vectorDotProduct<ThreadVector<double, 10>>();
 	//vectorDotProduct<ThreadVectorLambda<double, 10>>();

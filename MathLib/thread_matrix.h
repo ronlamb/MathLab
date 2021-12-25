@@ -22,7 +22,7 @@ namespace MathLib {
 			using namespace std;
 		}
 
-		ThreadMatrix& Product(ThreadMatrix& m2, ThreadMatrix& result) {
+		ThreadMatrix& product(ThreadMatrix& m2, ThreadMatrix& result) {
 			return result;
 		}
 
