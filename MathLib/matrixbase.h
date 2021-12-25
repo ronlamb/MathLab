@@ -11,7 +11,7 @@ namespace MathLib {
 		size_t rows;
 		size_t columns;
 		T* buffer = 0;		// one dimensional array of all the cells
-		T** row;			// Array of pointers to the first element of each row.
+		T** arr;			// Array of pointers to the first element of each row.
 		void init();
 
 	public:
@@ -38,7 +38,7 @@ namespace MathLib {
 			for (auto item: list) {
 				size_t j = 0;
 				for (auto column : item) {
-					row[i][j] = column;
+					arr[i][j] = column;
 					j++;
 				}
 				i++;
@@ -50,7 +50,7 @@ namespace MathLib {
 		}
 
 		void setCell(size_t i, size_t j, T value) {
-			row[i][j] = value;
+			arr[i][j] = value;
 		}
 
 		MatrixBase<T>& operator=(const MatrixBase<T>& right) {
@@ -59,7 +59,7 @@ namespace MathLib {
 			}
 			for (int i = 0; i < right.rows; i++) {
 				for (int j = 0; j < right.columns; j++) {
-					row[i][j] = right.row[i][j];
+					arr[i][j] = right.arr[i][j];
 				}
 			}
 
@@ -81,7 +81,7 @@ namespace MathLib {
 				b[ip] = b[i];
 				if (ii) {
 					for (j = ii; j < i - 2; j++) {
-						sum -= row[i][j] * b[j];
+						sum -= arr[i][j] * b[j];
 					}
 				}
 				else {
@@ -93,9 +93,9 @@ namespace MathLib {
 			for (i = n - 1; i >= 0; i--) {
 				sum = b[i];
 				for (j = i + 1; j < n; j++) {
-					sum -= row[i][j] * b[j];
+					sum -= arr[i][j] * b[j];
 				}
-				b[i] = sum / row[i][i];
+				b[i] = sum / arr[i][i];
 			}
 		}
 	};
@@ -108,7 +108,7 @@ namespace MathLib {
 			os << " {";
 			for (size_t j = 0; j < item.columns; ++j) {
 				if (j) os << ", ";
-				os << item.row[i][j];
+				os << item.arr[i][j];
 				if (j && j % 8 == 0) os << endl << "    ";
 			}
 			os << " }";

@@ -12,11 +12,11 @@ template <typename T> void MatrixBase<T>::init() {
 	}
 	size_t num_cells = rows * columns;  // Calculate the number of cells
 	buffer = new T[num_cells];          // Allocate a single contiguous array for each cell
-	row = new T * [num_cells];           // Allocate an array of pointers to the first element of each row
+	arr = new T * [num_cells];           // Allocate an array of pointers to the first element of each row
 
 	T* curr = buffer;
 	for (size_t i = 0; i < rows; i++) {
-		row[i] = curr;      // store the address of row[i][0]
+		arr[i] = curr;      // store the address of arr[i][0]
 		curr += columns;    // advance to the next column
 	}
 }
@@ -39,9 +39,9 @@ template <typename T> MatrixBase<T>& MatrixBase<T>::product(MatrixBase<T>& m2, M
 		for (size_t j = 0; j < m2.columns; j++) {
 			T sum = 0.0;
 			for (size_t k = 0; k < columns; k++) {
-				sum += row[i][k] * m2.row[k][j];
+				sum += arr[i][k] * m2.arr[k][j];
 			}
-			result.row[i][j] = sum;
+			result.arr[i][j] = sum;
 		}
 	}
 
@@ -106,7 +106,7 @@ template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
 	for (i = 0; i < n; ++i) {
 		T big = 0.0;
 		for (j = 0; j < n; ++j) {
-			if ((temp = abs(row[i][j])) > big) { big = temp; }
+			if ((temp = abs(arr[i][j])) > big) { big = temp; }
 		}
 		if (big == 0.0) { throw MathException(SINGULAR_MATRIX);}
 		// No nonzero largest element
@@ -117,19 +117,19 @@ template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
 	// Loop over columns of Crout's method
 	for (j = 0; j < n; ++j) {
 		for (i = 0; i < j; ++i) {
-			T sum = row[i][j];
+			T sum = arr[i][j];
 			for (k = 0; k < i; ++k) {
-				sum -= row[i][k] * row[k][j];
+				sum -= arr[i][k] * arr[k][j];
 			}
-			row[i][j] = sum;
+			arr[i][j] = sum;
 		}
 		T big = 0.0;	// initialize for the search for largest pivot element
 		for (i = j; i < n; ++i) {
-			T sum = row[i][j];
+			T sum = arr[i][j];
 			for (k = 0; k < j; k++) {
-				sum -= row[i][k] * row[k][j];
+				sum -= arr[i][k] * arr[k][j];
 			}
-			row[i][j] = sum;
+			arr[i][j] = sum;
 
 			// is the figure of merit for the pivot better than the best so far
 			if ((dum = vv[i] * abs(sum)) > big) { 
@@ -141,22 +141,22 @@ template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
 		// Interchange rows if needed
 		if (j != imax) {
 			for (k = 0; k < n; ++k) {
-				dum = row[imax][k];
-				row[imax][k] = row[j][k];
-				row[j][k] = dum;
+				dum = arr[imax][k];
+				arr[imax][k] = arr[j][k];
+				arr[j][k] = dum;
 			}
 			det = -det;
 			vv[imax] = vv[j];	// also interchange the scale factor
 		}
 		indx[j] = imax;
-		if (row[j][j] == 0.0) { row[j][j] = error_factor; }	// if pivot elem 0 substitute error_factor for 0
+		if (arr[j][j] == 0.0) { arr[j][j] = error_factor; }	// if pivot elem 0 substitute error_factor for 0
 		if (j != n-1) {
-			dum = 1.0 / row[j][j];
+			dum = 1.0 / arr[j][j];
 			for (i = j + 1; i < n; ++i) {
-				row[i][j] *= dum;
+				arr[i][j] *= dum;
 			}
 		}
-		det *= row[j][j];
+		det *= arr[j][j];
 	}
 
 	cout << "vv: {";
@@ -196,9 +196,9 @@ template <typename T> T MatrixBase<T>::determinate() {
 	for (size_t i = 0; i < columns - 1; ++i) {
 		// Partial pivot: find row r with the largest element in column i
 		size_t r = i;
-		T maxR = abs(row[i][i]);
+		T maxR = abs(arr[i][i]);
 		for (size_t k = i + 1; k < columns; ++k) {
-			T val = abs(row[k][i]);
+			T val = abs(arr[k][i]);
 			if (val > maxR) {
 				r = k;
 				maxR = val;
@@ -208,25 +208,25 @@ template <typename T> T MatrixBase<T>::determinate() {
 		// swap row if R != i and set det to -det
 		if (r != i) {
 			for (size_t j = i; j < columns; ++j) {
-				std::swap(row[i][j], row[r][j]);
+				std::swap(arr[i][j], arr[r][j]);
 				det = -det;
 			}
 		}
 
 		// Make upper triangle
-		T curr_diag = row[i][i];
+		T curr_diag = arr[i][i];
 		if (abs(curr_diag) < error_factor) return 0.0;
 
 		for (size_t r = i + 1; r < columns; ++r) {
-			T multiple = row[r][i] / curr_diag;	// multiple of row i to clear element in ith column
+			T multiple = arr[r][i] / curr_diag;	// multiple of row i to clear element in ith column
 			for (size_t j = i; j < columns; ++j) {
-				row[r][j] -= multiple * row[i][j];
+				arr[r][j] -= multiple * arr[i][j];
 			}
 		}
 		det *= curr_diag; // update determinate by current diagonal
 	}
 
-	det *= row[rows - 1][columns - 1];
+	det *= arr[rows - 1][columns - 1];
 
 	return det;
 }

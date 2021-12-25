@@ -9,7 +9,7 @@ namespace MathLib {
 		using MatrixBase<T>::rows;
 		using MatrixBase<T>::columns;
 		using MatrixBase<T>::buffer;
-		using MatrixBase<T>::row;
+		using MatrixBase<T>::arr;
 		size_t num_threads;
 
 	public:
