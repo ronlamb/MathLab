@@ -72,7 +72,24 @@ template void MatrixBase<double>::LU(MatrixBase<double>& dcmp, double* indx);
 template void MatrixBase<long double>::LU(MatrixBase<long double>& dcmp, long double* indx);
 
 // This function is taken from the Chapter 2.3 LU Decomposition in the book
-// Numerical recipes in C It creates a LU decomped matrix inside a single LU matrix
+// Numerical recipes in C (1988).  Using Crout's method, a LU decomposed matrix
+// is created.  Unlike the typical decomposition algorithm it stores both lower
+// and upper in a single matrix, not storing the identity diagonal.  
+// 
+// Example:
+//    Lower               Upper	    		DCMP
+//     1  0  0  0     2  1  3  7       2  1  3  7
+//    -2  1  0  0     0  1  2  1      -2  1  2  1
+//     7 -3  1  0     0  0  7  3       7 -3  7  3
+//    -1  3 .5  1     0  0  0 -1      -1  3 .5 -1
+//
+// The differences from the original version defined as ldcmp(a, n, indx, d) are:
+// A	the array, is a private member variable arr
+// N	is a private member variable row 
+// D	in the original is a +1/-1.  In this version it is the value of the determinate
+// INDX	same value
+// 
+// Note: A later update to the code may re-introduce the D parameter of +/- 1
 template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
 	int i, imax, j, k;
 	T dum, temp;
@@ -154,6 +171,20 @@ template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
 }
 
 template double MatrixBase<double>::ludcmp(double* indx);
+
+// Determinate function
+// Simplified version of the determinate function.  Crout's version ludcmp also
+// Returns the determinate. 
+// 
+// Crout's 
+// Decomposition algorthm it doesn't split the matrix into a separate matrix, but
+// stores both the lower and upper in the same matrix.
+// Example:
+//    Lower               Upper	    		DCMP
+//     1  0  0  0     2  1  3  7       2  1  3  7
+//    -2  1  0  0     0  1  2  1      -2  1  2  1
+//     7 -3  1  0     0  0  7  3       7 -3  7  3
+//    -1  3 .5  1     0  0  0 -1      -1  3 .5 -1
 
 template <typename T> T MatrixBase<T>::determinate() {
 	if (columns != rows) {
