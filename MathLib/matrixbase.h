@@ -103,12 +103,17 @@ namespace MathLib {
 	template <typename T> std::ostream& operator<<(std::ostream& os, const MatrixBase<T>& item) {
 		using namespace std;
 		os << "{ ";
+		os.precision(4);
+//		auto width = os.width();
 		for (size_t i = 0; i < item.rows; ++i) {
 			if (i) os << "  ";
-			os << " {";
+			os << " {" << fixed;
 			for (size_t j = 0; j < item.columns; ++j) {
 				if (j) os << ", ";
+				
+				os.width(10);
 				os << item.arr[i][j];
+//				os.width(width);
 				if (j && j % 8 == 0) os << endl << "    ";
 			}
 			os << " }";

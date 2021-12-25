@@ -12,7 +12,7 @@ template <typename T> void MatrixBase<T>::init() {
 	}
 	size_t num_cells = rows * columns;  // Calculate the number of cells
 	buffer = new T[num_cells];          // Allocate a single contiguous array for each cell
-	arr = new T * [num_cells];           // Allocate an array of pointers to the first element of each row
+	arr = new T * [rows];           // Allocate an array of pointers to the first element of each row
 
 	T* curr = buffer;
 	for (size_t i = 0; i < rows; i++) {

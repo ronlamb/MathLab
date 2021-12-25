@@ -58,15 +58,6 @@ template <typename T, typename Y> void luDcmp() {
 	cout << "Det" << dcmp.ludcmp(indx) << endl;
 }
 void matrixPerformance() {
-	//matrixProduct<MatrixBase<double>>();
+	matrixProduct<MatrixBase<double>>();
 	luDcmp<MatrixBase<double>, double>();
-	//vectorDotProduct<MathVectorBase<double>>();
-	//vectorDotProduct<ThreadVector<double, 10>>();
-	//vectorDotProduct<ThreadVectorLambda<double, 10>>();
-	//vectorDotProduct<ThreadVectorOMP<double, 10>>();
-	//size_t vectorSize = 100000000;
-	//vectorTime<MathVectorBase<double>>(vectorSize, "vector");
-	//vectorTime<ThreadVector<double, 10>>(vectorSize, "thdvector");
-	//vectorTime<ThreadVectorLambda<double, 10>>(vectorSize, "lambdavector");
-	//vectorTime<ThreadVectorOMP<double, 10>>(vectorSize, "ompvector");
 }
