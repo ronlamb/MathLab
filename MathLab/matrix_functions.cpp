@@ -23,16 +23,14 @@ template <typename T> void matrixProduct() {
 	};
 	cout << line_separator << endl;
 	cout << m2 << endl;
-	/*
-	 * 7, 7, 11, 6, 17, 12
-	 * 57, 50, 47, 7, 51, 54
-	 * 5, 5, 7, 2, 5, 7
-	 * -1, 5, 17, -8, 11, -7
-	 */
+
 	T result(4, 6);
 	cout << m1.product(m2, result) << endl;
+
+	cout << "first 3 diag " << m1[0][0] << ", " << m1[1][1] << ", " << m1[2][2] << endl;
+
 }
-template <typename T, typename Y> void luDcmp() {
+template <typename T, typename Y> void ludcmp() {
 	T mat = {
 		{ 1, 2, 5, -2, 3, -1},
 		{ 0, 1, 2, 1, 2, 2},
@@ -43,21 +41,15 @@ template <typename T, typename Y> void luDcmp() {
 	};
 
 	using namespace std;
-	T dcmp = {
-		{ 1, 2, 5, -2, 3, -1},
-		{ 0, 1, 2, 1, 2, 2},
-		{ 1, 0, 1, 1, 1, 1},
-		{ 2, 1, 0, 1, 2, 2},
-		{ 3, 2, 1, 0, 1, 2},
-		{ 1, 2, 3, -1, -2 ,-3}
-	};
+	T dcmp(mat);
 
 	cout << "dcmp:\n" << dcmp << endl;
 	cout << "Det = " << mat.determinate() << endl;
 	Y indx[6];
-	cout << "Det" << dcmp.ludcmp(indx) << endl;
+	cout << "Det = " << dcmp.ludcmp(indx) << endl;
+	cout << "After:\n" << dcmp << endl;
 }
 void matrixPerformance() {
 	matrixProduct<MatrixBase<double>>();
-	luDcmp<MatrixBase<double>, double>();
+	ludcmp<MatrixBase<double>, double>();
 }

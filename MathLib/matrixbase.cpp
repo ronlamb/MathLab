@@ -6,13 +6,16 @@
 
 using namespace MathLib;
 
+/*
+ * Initialize the matrix.
+ */
 template <typename T> void MatrixBase<T>::init() {
 	if (columns == 0) {
 		columns = rows;
 	}
 	size_t num_cells = rows * columns;  // Calculate the number of cells
 	buffer = new T[num_cells];          // Allocate a single contiguous array for each cell
-	arr = new T * [rows];           // Allocate an array of pointers to the first element of each row
+	arr = new T * [rows];				// Allocate an array of pointers to the first element of each row
 
 	T* curr = buffer;
 	for (size_t i = 0; i < rows; i++) {
@@ -91,103 +94,91 @@ template void MatrixBase<long double>::LU(MatrixBase<long double>& dcmp, long do
 // 
 // Note: A later update to the code may re-introduce the D parameter of +/- 1
 template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
-	int i, imax, j, k;
-	T dum, temp;
-
 	using namespace std;
 
-	cout << "Making vv array of " << rows << " rows\n";
-	unique_ptr<T[]> vv(new T[rows]);
+	if (!isSquare()) {
+		throw MathException(MUST_BE_A_SQUARE);
+	}
+
+	unique_ptr<T[]> scaling(new T[rows]);		// Create scaling array
 	size_t n = rows;
 	T det = 1.0;
 
-	cout << "ludcmp:\n" << *this << std::endl;
 	// loop over rows to get the implicit scaling information
-	for (i = 0; i < n; ++i) {
+	for (int i = 0; i < n; ++i) {
 		T big = 0.0;
-		for (j = 0; j < n; ++j) {
+		for (int j = 0; j < n; ++j) {
+			T temp;
 			if ((temp = abs(arr[i][j])) > big) { big = temp; }
 		}
 		if (big == 0.0) { throw MathException(SINGULAR_MATRIX);}
+
 		// No nonzero largest element
-		vv[i] = 1.0 / big; // save the scaling
+		scaling[i] = 1.0 / big; // save the scaling
 	}
 
-	cout << "Doung Crout's method." << endl;
-	// Loop over columns of Crout's method
-	for (j = 0; j < n; ++j) {
-		for (i = 0; i < j; ++i) {
+	// Loop over columns using Crout's method
+	for (int j = 0; j < n; ++j) {
+		for (int i = 0; i < j; ++i) {
 			T sum = arr[i][j];
-			for (k = 0; k < i; ++k) {
+			for (int k = 0; k < i; ++k) {
 				sum -= arr[i][k] * arr[k][j];
 			}
 			arr[i][j] = sum;
 		}
-		T big = 0.0;	// initialize for the search for largest pivot element
-		for (i = j; i < n; ++i) {
+
+		// Search for the largest pivot element
+		T big = 0.0;
+		int imax;
+
+		for (int i = j; i < n; ++i) {
 			T sum = arr[i][j];
-			for (k = 0; k < j; k++) {
+			for (int k = 0; k < j; k++) {
 				sum -= arr[i][k] * arr[k][j];
 			}
 			arr[i][j] = sum;
 
 			// is the figure of merit for the pivot better than the best so far
-			if ((dum = vv[i] * abs(sum)) > big) { 
-				big = dum;
+			T temp;
+			if ((temp = scaling[i] * abs(sum)) > big) { 
+				big = temp;
 				imax = i;
 			}
 		}
 		
 		// Interchange rows if needed
 		if (j != imax) {
-			for (k = 0; k < n; ++k) {
-				dum = arr[imax][k];
+			for (int k = 0; k < n; ++k) {
+				T dum = arr[imax][k];
 				arr[imax][k] = arr[j][k];
 				arr[j][k] = dum;
 			}
 			det = -det;
-			vv[imax] = vv[j];	// also interchange the scale factor
+			scaling[imax] = scaling[j];	// also interchange the scale factor
 		}
+
 		indx[j] = imax;
 		if (arr[j][j] == 0.0) { arr[j][j] = error_factor; }	// if pivot elem 0 substitute error_factor for 0
 		if (j != n-1) {
-			dum = 1.0 / arr[j][j];
-			for (i = j + 1; i < n; ++i) {
-				arr[i][j] *= dum;
+			T divider = arr[j][j];
+			for (int i = j + 1; i < n; ++i) {
+				arr[i][j] /= divider;
 			}
 		}
 		det *= arr[j][j];
 	}
 
-	cout << "vv: {";
-	for (i = 0; i < n; ++i) {
-		if (i) { cout << ", "; }
-		cout << vv[i];
-	}
-	cout << "}\n";
-
-	cout << "after:\n" << *this << endl;
 	return det;
 }
 
 template double MatrixBase<double>::ludcmp(double* indx);
+template long double MatrixBase<long double>::ludcmp(long double* indx);
 
 // Determinate function
 // Simplified version of the determinate function.  Crout's version ludcmp also
-// Returns the determinate. 
-// 
-// Crout's 
-// Decomposition algorthm it doesn't split the matrix into a separate matrix, but
-// stores both the lower and upper in the same matrix.
-// Example:
-//    Lower               Upper	    		DCMP
-//     1  0  0  0     2  1  3  7       2  1  3  7
-//    -2  1  0  0     0  1  2  1      -2  1  2  1
-//     7 -3  1  0     0  0  7  3       7 -3  7  3
-//    -1  3 .5  1     0  0  0 -1      -1  3 .5 -1
-
+// Returns the determinate, for when both LU and determinate is needed.
 template <typename T> T MatrixBase<T>::determinate() {
-	if (columns != rows) {
+	if (!isSquare()) {
 		throw MathException(MUST_BE_A_SQUARE);
 	}
 
@@ -230,7 +221,6 @@ template <typename T> T MatrixBase<T>::determinate() {
 
 	return det;
 }
-
 
 template double MatrixBase<double>::determinate();
 template long double MatrixBase<long double>::determinate();

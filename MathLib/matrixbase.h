@@ -14,6 +14,10 @@ namespace MathLib {
 		T** arr;			// Array of pointers to the first element of each row.
 		void init();
 
+		bool isSquare() {
+			return rows == columns;
+		}
+
 	public:
 		const T error_factor = std::numeric_limits<T>::min() * 100;
 
@@ -53,6 +57,10 @@ namespace MathLib {
 			arr[i][j] = value;
 		}
 
+		T* operator[](const size_t& index) const {
+			return buffer + index * columns;
+		}
+
 		MatrixBase<T>& operator=(const MatrixBase<T>& right) {
 			if (right.columns != columns || right.rows != rows) {
 				throw MathException("Rows and columns don't match.");
@@ -71,6 +79,7 @@ namespace MathLib {
 		template<typename T> friend std::ostream& operator<<(std::ostream& os, const MatrixBase<T>& item);
 		void LU(MatrixBase<T>& lower, T *indx);
 		T ludcmp(T *indx);
+
 		T* lubksb(T* indx, T* b) {
 			int i, ii = 0, ip, j;
 			T sum;
@@ -126,5 +135,4 @@ namespace MathLib {
 
 		return os;
 	}
-
 }
