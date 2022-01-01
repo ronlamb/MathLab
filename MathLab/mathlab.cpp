@@ -5,19 +5,16 @@
 #include <vector>
 #include "matrixbase.h"
 #include "vector_functions.h"
+#include "matrix_functions.h"
 #include "instrumentation.h"
-
+#include "thread_matrix.h"
 using namespace MathLib;
 using namespace std;
 
 int main()
 {
-	//MatrixBase<double> mat(3);
-	vectorPerformance();
-	////simpleVectorDotProduct();
-	//thdVectorDotProduct();
-	//size_t vector_len = 10000000;
-	////vectorTime(100000000);
-	////threadVectorTime(100000000);
+	//vectorPerformance();
+	//ThreadMatrix<double> mat();
+	matrixPerformance();
 	Instrumentation::printResults();
 }

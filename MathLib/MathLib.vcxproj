@@ -161,6 +161,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="mathvectorbase.h" />
+    <ClInclude Include="thread_matrix.h" />
     <ClInclude Include="thread_vector.h" />
     <ClInclude Include="thread_vector_lambda.h" />
     <ClInclude Include="thread_vector_omp.h" />
@@ -177,6 +178,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="mathvectorbase.cpp" />
+    <ClCompile Include="thread_matrix.cpp" />
     <ClCompile Include="thread_vector.cpp" />
     <ClCompile Include="thread_vector_lambda.cpp" />
     <ClCompile Include="thread_vector_omp.cpp" />
