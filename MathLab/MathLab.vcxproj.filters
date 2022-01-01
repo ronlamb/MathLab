@@ -24,12 +24,18 @@
     <ClCompile Include="messages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="matrix_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vector_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="messages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

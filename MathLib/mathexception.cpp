@@ -8,4 +8,5 @@ namespace MathLib {
 	const std::string VECTOR_SIZES_MUST_BE_THE_SAME = "Vector sizes must be the same for operation.";
 	const std::string CROSS_PRODUCTS_NOT_3D = "Cross products are only defined in 3 dimensional space.";
 	const std::string NUM_THREADS_LT_0 = "Number of threads must be greater than or equal to zero.";
+	const std::string SINGULAR_MATRIX = "Singular matrix in LUDCMP";
 };

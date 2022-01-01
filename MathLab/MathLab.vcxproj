@@ -150,10 +150,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="mathlab.cpp" />
+    <ClCompile Include="matrix_functions.cpp" />
     <ClCompile Include="messages.cpp" />
     <ClCompile Include="vector_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="matrix_functions.h" />
     <ClInclude Include="messages.h" />
     <ClInclude Include="vector_functions.h" />
   </ItemGroup>
