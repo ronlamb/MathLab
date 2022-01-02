@@ -72,7 +72,7 @@ namespace MathLib {
 
 			omp_set_num_threads(num_threads);
 			#pragma omp parallel for shared(arr1, varr) private(i) reduction(+:sum)
-			for (long i = 0; i < size; i++) {
+			for (i = 0; i < size; i++) {
 				sum += arr1[i] * varr[i];
 			}
 

@@ -6,9 +6,12 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathLab", "MathLab\MathLab.vcxproj", "{4290B5D0-AC49-4847-A830-65AF030B2FA2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F9E4F238-626E-4DF4-B87E-36DD93790124} = {F9E4F238-626E-4DF4-B87E-36DD93790124}
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4} = {A9B480AC-FB28-4670-8CE9-30E371BAF6F4}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathLib", "MathLib\MathLib.vcxproj", "{F9E4F238-626E-4DF4-B87E-36DD93790124}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yaml", "yaml\yaml.vcxproj", "{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +37,14 @@ Global
 		{F9E4F238-626E-4DF4-B87E-36DD93790124}.Release|x64.Build.0 = Release|x64
 		{F9E4F238-626E-4DF4-B87E-36DD93790124}.Release|x86.ActiveCfg = Release|Win32
 		{F9E4F238-626E-4DF4-B87E-36DD93790124}.Release|x86.Build.0 = Release|Win32
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}.Debug|x64.ActiveCfg = Debug|x64
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}.Debug|x64.Build.0 = Debug|x64
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}.Debug|x86.ActiveCfg = Debug|Win32
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}.Debug|x86.Build.0 = Debug|Win32
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}.Release|x64.ActiveCfg = Release|x64
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}.Release|x64.Build.0 = Release|x64
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}.Release|x86.ActiveCfg = Release|Win32
+		{A9B480AC-FB28-4670-8CE9-30E371BAF6F4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
