@@ -1,6 +1,3 @@
-//#include <iostream>
-//#include <vector>
-//#include <string>
 #include "mathvectorbase.h"
 #include "thread_vector.h"
 #include "thread_vector_lambda.h"
@@ -38,8 +35,9 @@ template <typename T> void vectorTime(size_t size, string message) {
 	}
 
 	string title = message + " " + to_string(size);
+	INSTR_NAME(tmp, title);
 	for (size_t i = 0; i < 100; ++i) {
-		INSTR_NAME_START(tmp, title);
+		INSTR_NAME_START(tmp);
 		v1.dotProduct(v2);
 		INSTR_NAME_END(tmp);
 	}

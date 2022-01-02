@@ -175,7 +175,8 @@ extern Instrumentation &name
 #define INSTR_START(name) name##.start()
 #define INSTR_END(name) name##.updateDuration()
 
-#define INSTR_NAME_START(name, descr) Instrumentation &t_##name = Instrumentation::NewCounter(descr); t_##name.start();
+#define INSTR_NAME(name, descr) Instrumentation &t_##name = Instrumentation::NewCounter(descr);
+#define INSTR_NAME_START(name) t_##name.start();
 #define INSTR_NAME_END(name) t_##name.updateDuration()
 #else
 #define NEW_COUNTER(name, description)
