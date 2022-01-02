@@ -27,6 +27,8 @@ namespace MathLib {
 			init();
 		}
 
+		size_t getRows() { return rows;  }
+		size_t getColumns() { return columns;  }
 		MatrixBase(const std::initializer_list<std::initializer_list<T>>& list) {
 			rows = list.size();
 			columns = 0;

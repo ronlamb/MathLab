@@ -1,7 +1,7 @@
 #include <iostream>
 #include "matrixbase.h"
 #include "messages.h"
-
+#include "test_matrix.h"
 using namespace MathLib;
 
 template <typename T> void matrixProduct() {
@@ -50,6 +50,7 @@ template <typename T, typename Y> void ludcmp() {
 	cout << "After:\n" << dcmp << endl;
 }
 void matrixPerformance() {
-	matrixProduct<MatrixBase<double>>();
-	ludcmp<MatrixBase<double>, double>();
+	//matrixProduct<MatrixBase<double>>();
+	//ludcmp<MatrixBase<double>, double>();
+	TestMatrix<double> test1("../testmatrixes/six_by_six_1.yaml");
 }

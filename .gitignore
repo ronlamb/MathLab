@@ -7,3 +7,4 @@
 **/*.sw?
 **/*.bak
 **/build/*
+yaml/yaml-cpp
