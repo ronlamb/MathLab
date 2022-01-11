@@ -56,7 +56,7 @@ template MatrixBase<long double>& MatrixBase<long double>::product(MatrixBase<lo
 
 template <typename T> void MatrixBase<T>::LU(MatrixBase<T>& dcmp, T *indx) {
 	if (dcmp.rows != rows || dcmp.columns != columns) {
-		throw MathException("Matrixe sizes don't match");
+		throw MathException("Matrix sizes don't match");
 	}
 
 	if (rows != columns) {
