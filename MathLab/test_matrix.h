@@ -17,21 +17,15 @@ class TestMatrix
 private:
 	size_t lineno;
 
-	void runTest(MatrixBase<T>& m, const YAML::Node &test) {
+	void loadMatrix(MatrixBase<T>& m, size_t rows, size_t columns, const std::string& values) {
 		using namespace std;
-		cout << "Testing " << m.getRows() << "x" << m.getColumns() << " matrix: " << test["name"] << "\n";
-		string matrix = test["matrix"].as<string>();
-		T determinate = test["determinate"].as<T>();
-
-		size_t columns = m.getRows();
-		size_t rows = m.getRows();
+		stringstream ss(values);
 		size_t cells_remain = rows * columns;
 		size_t row = 0;
 		size_t column = 0;
-		T onevalue;
-		stringstream ss(matrix);
-		while (ss >> onevalue && cells_remain) {
-			m[row][column] = onevalue;
+		T value;
+		while (ss >> value && cells_remain) {
+			m[row][column] = value;
 			column++;
 			if (column == columns) {
 				column = 0;
@@ -39,23 +33,47 @@ private:
 			}
 			cells_remain--;
 		}
+	}
+	void testDeterminate(const YAML::Node& test) {
+		using namespace std;
+		size_t rows = test["matrix"]["size"]["rows"].as<size_t>();
+		size_t columns = test["matrix"]["size"]["columns"].as<size_t>();
+		T determinate = test["determinate"].as<T>();
+		cout << "Test " << test["name"] << ": " << rows << "x" << columns << " matrix\n";
+
+		MatrixBase<T> m(rows, columns);
+		loadMatrix(m, rows, columns, test["matrix"]["values"].as<string>());
 		cout << "matrix read:\n" << m << endl;
-		cout << "  determinate = " << fixed << setprecision(8) << m.determinate() << " expected: " << m.determinate() << endl;
+		cout << "  determinate = " << fixed << setprecision(8) << m.determinate() << " expected: " << determinate << endl;
+	}
+
+	void testProduct(const YAML::Node& test) {
+		using namespace std;
+		size_t rows = test["matrix1"]["size"]["rows"].as<size_t>();
+		size_t columns = test["matrix1"]["size"]["columns"].as<size_t>();
+		MatrixBase<T> m1(rows, columns);
+		loadMatrix(m1, rows, columns, test["matrix1"]["values"].as<string>());
+
+		rows = test["matrix2"]["size"]["rows"].as<size_t>();
+		columns = test["matrix2"]["size"]["columns"].as<size_t>();
+		MatrixBase<T> m2(rows, columns);
+		loadMatrix(m2, rows, columns, test["matrix2"]["values"].as<string>());
 	}
 public:
 	TestMatrix(const std::string filename) {
 		using namespace std;
 		try {
 			YAML::Node test = YAML::LoadFile(filename);
-			YAML::Node size = test["TestFile"]["size"];
 			YAML::Node tests = test["TestFile"]["tests"];
-			size_t rows = size["rows"].as<size_t>();
-			size_t columns = size["columns"].as<size_t>();
-			//cout << "size = " << size << "\n"
-			//	<< "tests:\n" << tests << endl;
-			MatrixBase<T> m(rows, columns);
+			
 			for (YAML::const_iterator it = tests.begin(); it != tests.end(); ++it) {
-				runTest(m, it->as<YAML::Node>());
+				YAML::Node node = it->as<YAML::Node>();
+				if (node["type"].as<string>() == "determinate") {
+					testDeterminate(node);
+				}
+				if (node["type"].as<string>() == "product") {
+					testProduct(node);
+				}
 			}
 		}
 		catch (YAML::ParserException e) {

@@ -165,6 +165,9 @@
     <ClInclude Include="test_matrix.h" />
     <ClInclude Include="vector_functions.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="testmatrixes\six_by_six_1.yaml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

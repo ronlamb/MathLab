@@ -52,5 +52,5 @@ template <typename T, typename Y> void ludcmp() {
 void matrixPerformance() {
 	//matrixProduct<MatrixBase<double>>();
 	//ludcmp<MatrixBase<double>, double>();
-	TestMatrix<double> test1("../testmatrixes/six_by_six_1.yaml");
+	TestMatrix<double> test1("testmatrixes/six_by_six_1.yaml");
 }
