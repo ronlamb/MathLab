@@ -79,7 +79,7 @@ namespace MathLib {
 		MatrixBase<T>& product(MatrixBase<T>& m2, MatrixBase<T>& result);
 		T determinate();
 		template<typename T> friend std::ostream& operator<<(std::ostream& os, const MatrixBase<T>& item);
-		void LU(MatrixBase<T>& lower, T *indx);
+		void LU(MatrixBase<T>& dcmp, T *indx);
 		T ludcmp(T *indx);
 
 		T* lubksb(T* indx, T* b) {
