@@ -83,15 +83,16 @@ namespace MathLib {
 		T ludcmp(T *indx);
 
 		T* lubksb(T* indx, T* b) {
-			int i, ii = 0, ip, j;
+			//int i, ii = 0, ip, j;
+			int ii = 0;
 			T sum;
 			size_t n = rows;
-			for (i = 0; i < n; ++i) {
-				ip = indx[i];
+			for (int i = 0; i < n; ++i) {
+				int ip = indx[i];
 				sum = b[ip];
 				b[ip] = b[i];
 				if (ii) {
-					for (j = ii; j < i - 2; j++) {
+					for (int j = ii; j < i - 2; j++) {
 						sum -= arr[i][j] * b[j];
 					}
 				}
@@ -101,9 +102,9 @@ namespace MathLib {
 				b[i] = sum;
 			}
 			
-			for (i = n - 1; i >= 0; i--) {
+			for (int i = n - 1; i >= 0; i--) {
 				sum = b[i];
-				for (j = i + 1; j < n; j++) {
+				for (int j = i + 1; j < n; j++) {
 					sum -= arr[i][j] * b[j];
 				}
 				b[i] = sum / arr[i][i];
@@ -115,7 +116,6 @@ namespace MathLib {
 		using namespace std;
 		os << "{ ";
 		os.precision(4);
-//		auto width = os.width();
 		for (size_t i = 0; i < item.rows; ++i) {
 			if (i) os << "  ";
 			os << " {" << fixed;
@@ -124,7 +124,6 @@ namespace MathLib {
 				
 				os.width(10);
 				os << item.arr[i][j];
-//				os.width(width);
 				if (j && j % 8 == 0) os << endl << "    ";
 			}
 			os << " }";
