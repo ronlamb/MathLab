@@ -13,8 +13,8 @@ using namespace std;
 
 int main()
 {
-	//vectorPerformance();
-	//ThreadMatrix<double> mat();
+	vectorPerformance();
+	ThreadMatrix<double> mat();
 	matrixPerformance();
 	Instrumentation::printResults();
 }

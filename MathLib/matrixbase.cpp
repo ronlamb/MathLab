@@ -54,7 +54,7 @@ template <typename T> MatrixBase<T>& MatrixBase<T>::product(MatrixBase<T>& m2, M
 template MatrixBase<double> &MatrixBase<double>::product(MatrixBase<double>& m2, MatrixBase<double>& result);
 template MatrixBase<long double>& MatrixBase<long double>::product(MatrixBase<long double>& m2, MatrixBase<long double>& result);
 
-template <typename T> void MatrixBase<T>::LU(MatrixBase<T>& dcmp, T *indx) {
+template <typename T> T MatrixBase<T>::LU(MatrixBase<T>& dcmp, T *indx) {
 	if (dcmp.rows != rows || dcmp.columns != columns) {
 		throw MathException("Matrix sizes don't match");
 	}
@@ -68,11 +68,11 @@ template <typename T> void MatrixBase<T>::LU(MatrixBase<T>& dcmp, T *indx) {
 	//T indx[rows];
 	dcmp = *this;
 
-	dcmp.ludcmp(indx);
+	return dcmp.ludcmp(indx);
 }
 
-template void MatrixBase<double>::LU(MatrixBase<double>& dcmp, double* indx);
-template void MatrixBase<long double>::LU(MatrixBase<long double>& dcmp, long double* indx);
+template double MatrixBase<double>::LU(MatrixBase<double>& dcmp, double* indx);
+template long double MatrixBase<long double>::LU(MatrixBase<long double>& dcmp, long double* indx);
 
 // This function is taken from the Chapter 2.3 LU Decomposition in the book
 // Numerical recipes in C (1988).  Using Crout's method, a LU decomposed matrix
