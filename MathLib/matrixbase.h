@@ -1,4 +1,16 @@
 #pragma once
+/*
+ * MatrixBase class
+ * 
+ * This is the base class for Matrixes.  It contains the following functionality
+ * 
+ * 1. Calculate the Determinate of a matrix.
+ * 
+ *	  This can be done two ways.  
+ *		Function determinate - return value
+ *		Function LU - return value
+ * 
+ */
 #include <iostream>
 #include <initializer_list>
 #include "mathexception.h"
@@ -79,7 +91,7 @@ namespace MathLib {
 		MatrixBase<T>& product(MatrixBase<T>& m2, MatrixBase<T>& result);
 		T determinate();
 		template<typename T> friend std::ostream& operator<<(std::ostream& os, const MatrixBase<T>& item);
-		void LU(MatrixBase<T>& dcmp, T *indx);
+		T LU(MatrixBase<T>& dcmp, T *indx);
 		T ludcmp(T *indx);
 
 		T* lubksb(T* indx, T* b) {
