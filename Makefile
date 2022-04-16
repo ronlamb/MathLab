@@ -66,7 +66,7 @@ $(EXE): $(EXEOBJ)
 $(OBJDIR)/%.o: $(EXESRCDIR)/%.cpp | $(OBJDIR)
 	$(CPP) $(CPPFLAGS) $(EXEINCLUDES) -c $< -o $@
 
-$(LIBDIR)/%.o: $(EXELIBDIR)/%.cpp | $(OBJDIR)
+$(LIBDIR)/%.o: $(LIBSRCDIR)/%.cpp | $(OBJDIR)
 	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 #####################################################################
