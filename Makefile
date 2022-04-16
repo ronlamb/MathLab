@@ -13,10 +13,10 @@ LIBSRCDIR=MathLib
 EXESRCDIR=MathLab
 
 LIBSRCPATH=$(wildcard $(LIBSRCDIR)/*.cpp)
-LIBSRC=$(notdir $(LIBSRCPATH)
+LIBSRC=$(notdir $(LIBSRCPATH))
 
 EXESRCPATH=$(wildcard $(EXESRCDIR)/*.cpp)
-EXESRC=$(notdir $(EXESRCPATH)
+EXESRC=$(notdir $(EXESRCPATH))
 
 OBJDIR=$(OUTDIR)/obj
 LIBDIR=$(OUTDIR)/lib
