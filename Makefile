@@ -1,4 +1,4 @@
-CPPFLAGS=-std=c++ -pthread
+CPPFLAGS=-std=c++20 -pthread
 
 ifdef DEBUG
 	OUTDIR=debug
@@ -66,7 +66,7 @@ $(EXE): $(EXEOBJ)
 $(OBJDIR)/%.o: $(EXESRCDIR)/%.cpp | $(OBJDIR)
 	$(CPP) $(CPPFLAGS) $(EXEINCLUDES) -c $< -o $@
 
-$(LIBDIR)/%.o: $(LIBSRCDIR)/%.cpp | $(OBJDIR)
+$(OBJDIR)/%.o: $(LIBSRCDIR)/%.cpp | $(OBJDIR)
 	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 #####################################################################
