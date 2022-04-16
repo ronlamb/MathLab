@@ -49,7 +49,7 @@ exe: $(OBJDIR) $(EXE)
 # Library and executable targets
 #####################################################################
 
-$(OBJDIR): $(LIBDIR)
+$(OBJDIR) $(LIBDIR):
 	@echo "Making executable $@ directory"
 	@mkdir -p $@
 
