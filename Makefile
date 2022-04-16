@@ -1,11 +1,11 @@
 CPPFLAGS=-std=c++ -pthread
 
 ifdef DEBUG
-	OUTDIR=DEBUG
+	OUTDIR=debug
 	CPPFLAGS += -DDEBUG=1
 	LDLFLAGS=-DDEBUG=1
 else
-	OUTDIR=RELEASE
+	OUTDIR=release
 	CPPFLAGS += -O3
 endif
 
