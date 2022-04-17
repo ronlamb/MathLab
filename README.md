@@ -58,9 +58,11 @@ Initial Branches
 </table>
 
 ## To compile on mac run
+```bash
 brew install gcc
 exit terminal
 cd /opt/homebrew/bin
 ln -s g++-11 g++
 ln -s gcc-11 gcc
 brew install libomp
+```
