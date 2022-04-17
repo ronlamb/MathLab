@@ -43,6 +43,7 @@ LIBDIR=$(OUTDIR)/lib
 YAMLDIR= ./yaml/yaml-cpp/build/
 EXELIBS = -L./$(LIBDIR) -L$(YAMLDIR) -lMathLib -lm -lyaml-cpp
 
+EXELIBS = -L$(LIBDIR) -L$(YAMLDIR) -lMathLib -lm -lyaml-cpp
 
 LIBOBJ = $(patsubst %, $(LIBDIR)/%,$(LIBSRC:.cpp=.o))
 EXEOBJ = $(patsubst %, $(OBJDIR)/%,$(EXESRC:.cpp=.o))

@@ -24,7 +24,6 @@ Initial Branches
 00.Template - Initial checkin.
 01.Configuration - Initial project configuration in Visual Studio
 
-
 ## Timings
 
 **Ryzen 5900X with 64 GB Memory**
@@ -58,7 +57,7 @@ Initial Branches
 <td>ompvector 100000000</td><td style="text-align:right">1721 ms</td><td>100</td><td style="text-align:right">17 ms</td></tr>
 </table>
 
-Note: to compile on mac run
+## To compile on mac run
 brew install gcc
 exit terminal
 cd /opt/homebrew/bin
