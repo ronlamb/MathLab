@@ -31,12 +31,22 @@ Initial Branches
 
 <table>
 <tr><th>Item</th><th>Total Time</th><th># Runs</th><th>Average</th></th>
-<tr><td>vector 100000000</td><td style="text-align:right">25.717 seconds</td><td>100</td><td style="text-align:right">257 ms</td></tr>
-<tr><td>thdvector 100000000</td><td style="text-align:right">4.777 seconds</td><td>100</td><td style="text-align:right">47 ms</td></tr>
-<tr><td>lambdavector 100000000</td><td style="text-align:right">4.869 seconds</td><td>100</td><td style="text-align:right">48 ms</td></tr>
-<td>ompvector 100000000</td><td style="text-align:right">3.934 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
+<tr><td>vector 100000000</td><td style="text-align:right">2000 nanosec</td><td>100</td><td style="text-align:right">20 nsec</td></tr>
+<tr><td>thdvector 100000000</td><td style="text-align:right">3.772 seconds</td><td>100</td><td style="text-align:right">37 ms</td></tr>
+<tr><td>lambdavector 100000000</td><td style="text-align:right">3.771 seconds</td><td>100</td><td style="text-align:right">37 ms</td></tr>
+<td>ompvector 100000000</td><td style="text-align:right">3.714 seconds</td><td>100</td><td style="text-align:right">37 ms</td></tr>
 </table>
 
+
+**Ryzen 5900X with 64 GB Memory WSL**
+
+<table>
+<tr><th>Item</th><th>Total Time</th><th># Runs</th><th>Average</th></th>
+<tr><td>vector 100000000</td><td style="text-align:right">1863 nansec</td><td>100</td><td style="text-align:right">18.630 nsec</td></tr>
+<tr><td>thdvector 100000000</td><td style="text-align:right">3.931 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
+<tr><td>lambdavector 100000000</td><td style="text-align:right">3.902 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
+<td>ompvector 100000000</td><td style="text-align:right">3.898 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
+</table>
 
 **Macbook 16' M1 Pro with 16 GB Memory**
 

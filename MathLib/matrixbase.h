@@ -149,4 +149,8 @@ namespace MathLib {
 
 		return os;
 	}
+
+	extern template void MatrixBase<double>::init();
+	extern template void MatrixBase<long double>::init();
 }
+

@@ -26,8 +26,9 @@ template <typename T> void vectorDotProduct() {
 	cout.precision(precision);
 }
 
-template <double> void vectorDotProduct();
-template <long double> void vectorDotProduct();
+//template <double> void vectorDotProduct();
+//template <long double> void vectorDotProduct();
+
 template <typename T> void vectorTime(size_t size, string message) {
 	using namespace std;
 	T v1(size);
@@ -48,15 +49,15 @@ template <typename T> void vectorTime(size_t size, string message) {
 }
 
 namespace MathLib {
-void vectorPerformance() {
-	vectorDotProduct<MathVectorBase<double>>();
-	vectorDotProduct<ThreadVector<double, 10>>();
-	vectorDotProduct<ThreadVectorLambda<double, 10>>();
-	vectorDotProduct<ThreadVectorOMP<double, 10>>();
-	size_t vectorSize = 100000000;
-	vectorTime<MathVectorBase<double>>(vectorSize, "vector");
-	vectorTime<ThreadVector<double, 10>>(vectorSize,"thdvector");
-	vectorTime<ThreadVectorLambda<double, 10>>(vectorSize, "lambdavector");
-	vectorTime<ThreadVectorOMP<double, 10>>(vectorSize, "ompvector");
-}
+	void vectorPerformance() {
+		vectorDotProduct<MathVectorBase<double>>();
+		vectorDotProduct<ThreadVector<double, 10>>();
+		vectorDotProduct<ThreadVectorLambda<double, 10>>();
+		vectorDotProduct<ThreadVectorOMP<double, 10>>();
+		size_t vectorSize = 100000000;
+		vectorTime<MathVectorBase<double>>(vectorSize, "vector");
+		vectorTime<ThreadVector<double, 10>>(vectorSize,"thdvector");
+		vectorTime<ThreadVectorLambda<double, 10>>(vectorSize, "lambdavector");
+		vectorTime<ThreadVectorOMP<double, 10>>(vectorSize, "ompvector");
+	}
 }

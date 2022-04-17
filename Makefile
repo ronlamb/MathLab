@@ -1,4 +1,23 @@
-CPPFLAGS=-std=gnu++20 -pthread -I./yaml/yaml-cpp/include -arch arm64 -fopenmp
+ifeq ($(OS),Windows_NT)
+    uname_S := Windows
+else
+    uname_S := $(shell uname -s)
+endif
+
+#ifeq ($(uname_S), .....) #See https://stackoverflow.com/a/27776822/938111
+#    target = .....
+#endif
+
+CPPFLAGS=-std=gnu++20 -pthread -I./yaml/yaml-cpp/include -fopenmp
+ifeq ($(uname_S), Darwin)
+	CPP = g++-11
+	CPPFLAGS += -arch arm64
+	ARFLAGS = r
+else
+	CPP = g++
+	# ARFLAGS = crf
+	ARFLAGS = rcs
+endif
 
 ifdef DEBUG
 	OUTDIR=debug
@@ -22,17 +41,18 @@ OBJDIR=$(OUTDIR)/obj
 LIBDIR=$(OUTDIR)/lib
 
 YAMLDIR= ./yaml/yaml-cpp/build/
-# OBJLIBS = -L. -lmtoy
-# OBJLIBS = $(OBJDIR)
-EXELIBS = -L$(LIBDIR) -L$(YAMLDIR) -lMathLib -lm -lyaml-cpp
+EXELIBS = -L./$(LIBDIR) -L$(YAMLDIR) -lMathLib -lm -lyaml-cpp
 
-CPP = g++-11
 
 LIBOBJ = $(patsubst %, $(LIBDIR)/%,$(LIBSRC:.cpp=.o))
 EXEOBJ = $(patsubst %, $(OBJDIR)/%,$(EXESRC:.cpp=.o))
 
 LIB=$(LIBDIR)/libMathLib.a
-EXE=$(OUTDIR)/MathLab
+ifeq ($(OS), Windows_NT)
+	EXE=$(OUTDIR)/MathLab.exe
+else
+	EXE=$(OUTDIR)/MathLab
+endif
 
 EXEINCLUDES = -IMathLib
 
@@ -56,10 +76,10 @@ $(OBJDIR) $(LIBDIR):
 	@mkdir -p $@
 
 $(LIB): $(LIBOBJ)
-	ar r $(LIB) $(LIBOBJ)
+	ar $(ARFLAGS) $(LIB) $(LIBOBJ)
 
 $(EXE): $(EXEOBJ)
-	$(CPP) $(CPPFLAGS) -o $@ $(EXELIBS) $(EXEOBJ) $(OBJLIBS)
+	$(CPP) $(CPPFLAGS) -o $@ $(EXEOBJ) $(OBJLIBS) $(EXELIBS) 
 
 #####################################################################
 # Library and executable targets
