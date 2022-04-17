@@ -49,8 +49,12 @@ template <typename T, typename Y> void ludcmp() {
 	cout << "Det = " << dcmp.ludcmp(indx) << endl;
 	cout << "After:\n" << dcmp << endl;
 }
+
+namespace MathLib {
 void matrixPerformance() {
-	//matrixProduct<MatrixBase<double>>();
-	//ludcmp<MatrixBase<double>, double>();
-	TestMatrix<double> test1("testmatrixes/six_by_six_1.yaml");
+	matrixProduct<MatrixBase<double>>();
+	ludcmp<MatrixBase<double>, double>();
+	
+	//TestMatrix<double> test1("testmatrixes/six_by_six_1.yaml");
+}
 }

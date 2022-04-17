@@ -31,9 +31,10 @@ namespace MathLib {
 		}
 
 	public:
-		const T error_factor = std::numeric_limits<T>::min() * 100;
+		//constexpr static T error_factor = std::numeric_limits<T>::min() * 100;
+		const T error_factor =100.0;
 
-		MatrixBase() {}
+		//MatrixBase() {}
 
 		MatrixBase(size_t rows = 3, size_t columns = 0):rows(rows), columns(columns) {
 			init();
@@ -90,7 +91,7 @@ namespace MathLib {
 
 		MatrixBase<T>& product(MatrixBase<T>& m2, MatrixBase<T>& result);
 		T determinate();
-		template<typename T> friend std::ostream& operator<<(std::ostream& os, const MatrixBase<T>& item);
+		template<typename U> friend std::ostream& operator<<(std::ostream& os, const MatrixBase<U>& item);
 		T LU(MatrixBase<T>& dcmp, T *indx);
 		T ludcmp(T *indx);
 

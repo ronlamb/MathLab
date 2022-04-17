@@ -16,6 +16,9 @@
 #include "mathvectorbase.h"
 #include "mathexception.h"
 #include <thread>
+#include <memory>
+#include <vector>
+
 namespace MathLib {
 	template <typename T, size_t MIN_SLICE_SIZE=10, size_t MAX_THREADS=0>
 	class ThreadVector : public MathVectorBase<T>
@@ -68,8 +71,10 @@ namespace MathLib {
 			}
 
 			// Split the array into num_thread slices
-			std::shared_ptr<T[]> result = std::make_shared<T[]>(num_threads);
-
+			//std::shared_ptr<T[]> result = std::make_shared<T[]>(num_threads);
+			std::shared_ptr<T[]> result;
+			result = std::make_unique<T[]>(num_threads);
+			
 			vector<std::thread> thd;
 			size_t begin = 0;
 

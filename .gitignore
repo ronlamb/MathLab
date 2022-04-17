@@ -1,5 +1,6 @@
 # GitIgnore Template - V1.2
 .vs/*
+.vscode/
 # Visual Studio Directories
 **/x64
 **/Debug/*
@@ -8,3 +9,5 @@
 **/*.bak
 **/build/*
 yaml/yaml-cpp
+release/
+debug/

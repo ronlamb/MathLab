@@ -24,8 +24,15 @@ template <typename T> void MatrixBase<T>::init() {
 	}
 }
 
+// static const T error_factor = std::numeric_limits<T>::min() * 100;
+//double X = std::numeric_limits<double>::min() * 100;
+//template const double MatrixBase<double>::error_factor = 0.0;
+// template long double MatrixBase<long double>::error_factor = std::numeric_limits<long double>::min() * 100;
 template MatrixBase<double>::MatrixBase(size_t rows, size_t columns);
 template MatrixBase<long double>::MatrixBase(size_t rows, size_t columns);
+
+template void MatrixBase<double>::init();
+template  void MatrixBase<long double>::init();
 
 template <typename T> MatrixBase<T>& MatrixBase<T>::product(MatrixBase<T>& m2, MatrixBase<T>& result) {
 	using namespace std;

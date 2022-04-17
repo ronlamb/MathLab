@@ -14,7 +14,7 @@ using namespace std;
 int main()
 {
 	vectorPerformance();
-	ThreadMatrix<double> mat();
+	ThreadMatrix<double> mat{};
 	matrixPerformance();
 	Instrumentation::printResults();
 }
