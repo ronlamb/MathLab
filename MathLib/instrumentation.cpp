@@ -4,7 +4,7 @@
 #include <string>
 #include <regex>
 #include <sstream>
-#include "Instrumentation.h"
+#include "instrumentation.h"
 #include "util.h"
 std::unordered_map<std::string, Instrumentation> Instrumentation::timers;
 std::atomic<double> Instrumentation::instrument_time;

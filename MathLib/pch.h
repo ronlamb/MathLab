@@ -14,6 +14,7 @@
 #include <ostream>
 #include <initializer_list>
 #include <string>
+#include <memory>
 #include <stdexcept>
 
 

@@ -66,7 +66,7 @@ namespace MathLib {
 
 			return result;
 		}
-		template<typename T> friend std::ostream& operator<<(std::ostream& os, const MathVectorBase<T>& item);
+		template<typename U> friend std::ostream& operator<<(std::ostream& os, const MathVectorBase<U>& item);
 	};
 
 	template <typename T> std::ostream& operator<<(std::ostream& os, const MathVectorBase<T>& item) {

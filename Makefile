@@ -1,4 +1,4 @@
-CPPFLAGS=-std=c++20 -pthread
+CPPFLAGS=-std=gnu++20 -pthread -I./yaml/yaml-cpp/include -arch arm64 -fopenmp
 
 ifdef DEBUG
 	OUTDIR=debug
@@ -21,12 +21,14 @@ EXESRC=$(notdir $(EXESRCPATH))
 OBJDIR=$(OUTDIR)/obj
 LIBDIR=$(OUTDIR)/lib
 
-OBJLIBS = -L. -lmtoy
-EXELIBS = -L$(LIBDIR) -lMathLib -lm
+YAMLDIR= ./yaml/yaml-cpp/build/
+# OBJLIBS = -L. -lmtoy
+# OBJLIBS = $(OBJDIR)
+EXELIBS = -L$(LIBDIR) -L$(YAMLDIR) -lMathLib -lm -lyaml-cpp
 
-CPP = g++
+CPP = g++-11
 
-LIBOBJ = $(patsubst %, $(OBJDIR)/%,$(LIBSRC:.cpp=.o))
+LIBOBJ = $(patsubst %, $(LIBDIR)/%,$(LIBSRC:.cpp=.o))
 EXEOBJ = $(patsubst %, $(OBJDIR)/%,$(EXESRC:.cpp=.o))
 
 LIB=$(LIBDIR)/libMathLib.a
@@ -54,10 +56,10 @@ $(OBJDIR) $(LIBDIR):
 	@mkdir -p $@
 
 $(LIB): $(LIBOBJ)
-	ar crf $(LIB) $(LIBOBJS)
+	ar r $(LIB) $(LIBOBJ)
 
 $(EXE): $(EXEOBJ)
-	$(CPP) $(CPPFLAGS) -o $@ $< $(EXELIBS)
+	$(CPP) $(CPPFLAGS) -o $@ $(EXELIBS) $(EXEOBJ) $(OBJLIBS)
 
 #####################################################################
 # Library and executable targets
@@ -66,7 +68,7 @@ $(EXE): $(EXEOBJ)
 $(OBJDIR)/%.o: $(EXESRCDIR)/%.cpp | $(OBJDIR)
 	$(CPP) $(CPPFLAGS) $(EXEINCLUDES) -c $< -o $@
 
-$(OBJDIR)/%.o: $(LIBSRCDIR)/%.cpp | $(OBJDIR)
+$(LIBDIR)/%.o: $(LIBSRCDIR)/%.cpp | $(LIBDIR)
 	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 #####################################################################
@@ -86,8 +88,9 @@ showvers:
 depend: dep
 
 dep: Makefile
-	makedepend -- $(CPPFLAGS) $(SRC)
+	makedepend -- $(CPPFLAGS) $(LIBSRC) $(EXESRC)
 
 clean:
 	rm -f $(LIBOBJ) $(EXEOBJ) $(LIB) $(EXE) Makefile.bak
 
+# DO NOT DELETE

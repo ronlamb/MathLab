@@ -65,8 +65,10 @@ namespace MathLib {
 			}
 
 			// Split the array into num_thread slices
-			std::shared_ptr<T[]> result = std::make_shared<T[]>(num_threads);
-
+			//std::shared_ptr<T[]> result = std::make_shared<T[]>(num_threads);
+			std::shared_ptr<T[]> result;
+			result = std::make_unique<T[]>(num_threads);
+			
 			vector<std::thread> thd;
 			size_t begin = 0;
 
@@ -74,7 +76,7 @@ namespace MathLib {
 				size_t slice = size / num_threads;
 				size_t end = begin + slice;
 				for (size_t i = 0; i < num_threads - 1; ++i) {
-					thd.push_back(std::thread([=,&result, &v]() {
+					thd.push_back(std::thread([=,this,&result, &v]() {
 						T sum = 0.0;
 						for (size_t j = begin; j < end; ++j) {
 							sum += arr[j] * v.arr[j];

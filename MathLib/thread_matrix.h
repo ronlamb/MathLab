@@ -38,7 +38,7 @@ namespace MathLib {
 			size = rows * columns;
 			setNumThreads();
 		}
-		ThreadMatrix(size_t rows = 3, size_t columns = 0): MatrixBase<T>(rows, columns) {
+		ThreadMatrix(size_t rows, size_t columns = 0): MatrixBase<T>(rows, columns) {
 			size = rows * columns;
 			setNumThreads();
 		}

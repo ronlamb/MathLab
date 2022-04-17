@@ -9,6 +9,7 @@ using namespace MathLib;
 using namespace std;
 
 template <typename T> void vectorDotProduct() {
+	using namespace std;
 	T v1 = { 1.0, 2.0, 3.0, 4.0, -2, -7, -0.11, 1, 0, 0,
 				  0, -12, 1, 2, 3, -5, 3, 1, 2, 1, 7, .12, .93 };
 	T v2 = { 0.75, .0125, .175, .0675, .5, -.1675, 1.111, .1, 120, 120,
@@ -25,7 +26,10 @@ template <typename T> void vectorDotProduct() {
 	cout.precision(precision);
 }
 
+template <double> void vectorDotProduct();
+template <long double> void vectorDotProduct();
 template <typename T> void vectorTime(size_t size, string message) {
+	using namespace std;
 	T v1(size);
 	T v2(size);
 
@@ -43,6 +47,7 @@ template <typename T> void vectorTime(size_t size, string message) {
 	}
 }
 
+namespace MathLib {
 void vectorPerformance() {
 	vectorDotProduct<MathVectorBase<double>>();
 	vectorDotProduct<ThreadVector<double, 10>>();
@@ -53,4 +58,5 @@ void vectorPerformance() {
 	vectorTime<ThreadVector<double, 10>>(vectorSize,"thdvector");
 	vectorTime<ThreadVectorLambda<double, 10>>(vectorSize, "lambdavector");
 	vectorTime<ThreadVectorOMP<double, 10>>(vectorSize, "ompvector");
+}
 }

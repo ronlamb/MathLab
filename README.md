@@ -36,3 +36,22 @@ Initial Branches
 <tr><td>lambdavector 100000000</td><td style="text-align:right">4.869 seconds</td><td>100</td><td style="text-align:right">48 ms</td></tr>
 <td>ompvector 100000000</td><td style="text-align:right">3.934 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
 </table>
+
+
+**Macbook 16' M1 Pro with 16 GB Memory**
+
+<table>
+<tr><th>Item</th><th>Total Time</th><th># Runs</th><th>Average</th></th>
+<tr><td>vector 100000000</td><td style="text-align:right">2000 nansec</td><td>100</td><td style="text-align:right">20 nsec</td></tr>
+<tr><td>thdvector 100000000</td><td style="text-align:right">1719 ms</td><td>100</td><td style="text-align:right">17 ms</td></tr>
+<tr><td>lambdavector 100000000</td><td style="text-align:right">1708x ms</td><td>100</td><td style="text-align:right">17 ms</td></tr>
+<td>ompvector 100000000</td><td style="text-align:right">1721 ms</td><td>100</td><td style="text-align:right">17 ms</td></tr>
+</table>
+
+Note: to compile on mac run
+brew install gcc
+exit terminal
+cd /opt/homebrew/bin
+ln -s g++-11 g++
+ln -s gcc-11 gcc
+brew install libomp
