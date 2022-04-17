@@ -32,7 +32,7 @@ template MatrixBase<double>::MatrixBase(size_t rows, size_t columns);
 template MatrixBase<long double>::MatrixBase(size_t rows, size_t columns);
 
 template void MatrixBase<double>::init();
-template  void MatrixBase<long double>::init();
+template void MatrixBase<long double>::init();
 
 template <typename T> MatrixBase<T>& MatrixBase<T>::product(MatrixBase<T>& m2, MatrixBase<T>& result) {
 	using namespace std;
