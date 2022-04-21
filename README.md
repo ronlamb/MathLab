@@ -26,35 +26,50 @@ Initial Branches
 
 ## Timings
 
-**Ryzen 5900X with 64 GB Memory**
+The following test was done calculating a dot product of two 100,000,000 column vectors run 100 times.
+
+This test isn't designed to be a 
 
 <table>
-<tr><th>Item</th><th>Total Time</th><th># Runs</th><th>Average</th></th>
-<tr><td>vector 100000000</td><td style="text-align:right">2000 nanosec</td><td>100</td><td style="text-align:right">20 nsec</td></tr>
-<tr><td>thdvector 100000000</td><td style="text-align:right">3.772 seconds</td><td>100</td><td style="text-align:right">37 ms</td></tr>
-<tr><td>lambdavector 100000000</td><td style="text-align:right">3.771 seconds</td><td>100</td><td style="text-align:right">37 ms</td></tr>
-<td>ompvector 100000000</td><td style="text-align:right">3.714 seconds</td><td>100</td><td style="text-align:right">37 ms</td></tr>
-</table>
+<tr>
+    <th colspan = 2></th>
+    <th colspan = 2>Ryzen 5900X</th>
+    <th colspan = 2>Ryzen 5900X</th>
+    <th colspan = 2>M1 pro</th>
+</tr>
+<tr>
+    <th colspan = 2></th>
+    <th colspan = 2>64 GB Memory</th>
+    <th colspan = 2>64 GB Memory Linux WSL</th>
+    <th colspan = 2>16 GB Memory</th>
+</tr>
+<tr>
+    <th>Item</th><th># Runs</th>
+    <th>Total Time</th><th>Average</th>
+    <th>Total Time</th><th>Average</th>
+    <th>Total Time</th><th>Average</th>
+</tr>
 
-
-**Ryzen 5900X with 64 GB Memory WSL**
-
-<table>
-<tr><th>Item</th><th>Total Time</th><th># Runs</th><th>Average</th></th>
-<tr><td>vector 100000000</td><td style="text-align:right">1863 nansec</td><td>100</td><td style="text-align:right">18.630 nsec</td></tr>
-<tr><td>thdvector 100000000</td><td style="text-align:right">3.931 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
-<tr><td>lambdavector 100000000</td><td style="text-align:right">3.902 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
-<td>ompvector 100000000</td><td style="text-align:right">3.898 seconds</td><td>100</td><td style="text-align:right">39 ms</td></tr>
-</table>
-
-**Macbook 16' M1 Pro with 16 GB Memory**
-
-<table>
-<tr><th>Item</th><th>Total Time</th><th># Runs</th><th>Average</th></th>
-<tr><td>vector 100000000</td><td style="text-align:right">2000 nansec</td><td>100</td><td style="text-align:right">20 nsec</td></tr>
-<tr><td>thdvector 100000000</td><td style="text-align:right">1719 ms</td><td>100</td><td style="text-align:right">17 ms</td></tr>
-<tr><td>lambdavector 100000000</td><td style="text-align:right">1708x ms</td><td>100</td><td style="text-align:right">17 ms</td></tr>
-<td>ompvector 100000000</td><td style="text-align:right">1721 ms</td><td>100</td><td style="text-align:right">17 ms</td></tr>
+<tr><td>vector</td><td>100</td>
+    <td style="text-align:right">2000 nansec</td><td style="text-align:right">20 nsec</td>
+    <td style="text-align:right">1863 nansec</td><td style="text-align:right">18.630 nsec</td>
+    <td style="text-align:right">2000 nansec</td><td style="text-align:right">20 nsec</td>
+</tr>
+<tr><td>thdvector</td><td>100</td>
+    <td style="text-align:right">3.772 seconds</td><td style="text-align:right">37 ms</td>
+    <td style="text-align:right">3.931 seconds</td><td style="text-align:right">39 ms</td>
+    <td style="text-align:right">1719 ms</td><td style="text-align:right">17 ms</td>
+</tr>
+<tr><td>lambdavector</td><td>100</td>
+    <td style="text-align:right">3.771 seconds</td><td style="text-align:right">37 ms</td>
+    <td style="text-align:right">3.902 seconds</td><td style="text-align:right">39 ms</td>
+    <td style="text-align:right">1708 ms</td><td style="text-align:right">17 ms</td>
+</tr>
+<td>ompvector</td><td>100</td>
+    <td style="text-align:right">3.714 seconds</td><td style="text-align:right">37 ms</td>
+    <td style="text-align:right">3.898 seconds</td><td style="text-align:right">39 ms</td>
+    <td style="text-align:right">1721 ms</td><td style="text-align:right">17 ms</td>
+</tr>
 </table>
 
 ## To compile on mac run
