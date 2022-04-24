@@ -53,7 +53,7 @@ This test isn't designed to be a
 <tr><td>vector</td><td>100</td>
     <td style="text-align:right">2000 nansec</td><td style="text-align:right">20 nsec</td>
     <td style="text-align:right">1863 nansec</td><td style="text-align:right">18.630 nsec</td>
-    <td style="text-align:right">2000 nansec</td><td style="text-align:right">20 nsec</td>
+    <td style="text-align:right">1000 nansec</td><td style="text-align:right">10 nsec</td>
 </tr>
 <tr><td>thdvector</td><td>100</td>
     <td style="text-align:right">3.772 seconds</td><td style="text-align:right">37 ms</td>

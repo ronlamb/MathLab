@@ -32,7 +32,7 @@ namespace MathLib {
 
 	public:
 		//constexpr static T error_factor = std::numeric_limits<T>::min() * 100;
-		const T error_factor =100.0;
+		const T error_factor = std::numeric_limits<T>::min() * 100.0; //100.0 ;
 
 		//MatrixBase() {}
 
