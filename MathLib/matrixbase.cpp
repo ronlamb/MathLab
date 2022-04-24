@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <array>
 #include <algorithm>
+#include <limits>
 #include "matrixbase.h"
 #include "mathexception.h"
 
@@ -25,7 +26,7 @@ template <typename T> void MatrixBase<T>::init() {
 }
 
 // static const T error_factor = std::numeric_limits<T>::min() * 100;
-//double X = std::numeric_limits<double>::min() * 100;
+//double X = std::numeric_limits<double>::min() * 100.0;
 //template const double MatrixBase<double>::error_factor = 0.0;
 // template long double MatrixBase<long double>::error_factor = std::numeric_limits<long double>::min() * 100;
 template MatrixBase<double>::MatrixBase(size_t rows, size_t columns);

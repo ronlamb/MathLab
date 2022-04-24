@@ -12,6 +12,7 @@
  * 
  */
 #include <iostream>
+#include <limits>
 #include <initializer_list>
 #include "mathexception.h"
 namespace MathLib {
