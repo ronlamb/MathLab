@@ -60,14 +60,13 @@ namespace MathLib {
 		~ThreadVectorOMP() {}
 
 		T dotProduct(ThreadVectorOMP<T, MIN_SLICE_SIZE, MAX_THREADS>& v) {
-			using namespace std;
 			if (v.size != size) {
 				throw MathException(VECTOR_SIZES_MUST_BE_THE_SAME);
 			}
 
-			double sum = 0.0;
-			double* varr = v.arr;
-			double* arr1 = arr;
+			T sum = 0.0;
+			T* varr = v.arr;
+			T* arr1 = arr;
 			long i;
 
 			omp_set_num_threads(num_threads);

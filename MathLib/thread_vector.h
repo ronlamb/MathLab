@@ -27,6 +27,7 @@ namespace MathLib {
 		using MathVectorBase<T>::size;
 		using MathVectorBase<T>::arr;
 		size_t num_threads;
+		size_t slice;
 
 		void setNumThreads() {
 			num_threads = MAX_THREADS;
@@ -46,6 +47,8 @@ namespace MathLib {
 			else if (num_slices < num_threads) {
 				num_threads = num_slices;
 			}
+
+			slice = size / num_threads;
 		}
 	public:
 		ThreadVector(size_t size) :MathVectorBase<T>(size) {
@@ -79,16 +82,20 @@ namespace MathLib {
 			size_t begin = 0;
 
 			if (num_threads > 1) {
-				size_t slice = size / num_threads;
+				// size_t slice = size / num_threads;
 				size_t end = begin + slice;
+				T* arr2 = v.arr;
 				for (size_t i = 0; i < num_threads - 1; ++i) {
-					thd.push_back(std::thread(dpSlice, this, &v, begin, end, result, i));
+					thd.push_back(std::thread(dpSlice, arr, arr2, begin, end, result, i));
 					begin = end;
 					end += slice;
 				}
 			}
 			// Run the last slice in order
-			dpSlice(this, &v, begin, size, result, num_threads - 1);
+			T sum = 0.0;
+			for (size_t i = begin; i < size; ++i) {
+				sum += arr[i] * v.arr[i];
+			}
 
 			if (num_threads > 1) {
 				for (std::thread& t : thd) {
@@ -96,26 +103,24 @@ namespace MathLib {
 						t.join();
 					}
 				}
+
+				for (size_t i = 0; i < num_threads - 1; ++i) {
+					sum += result[i];
+				}
 			}
 
-			T sum = 0.0;
-			//cout << "num_threads = " << num_threads << endl;
-			for (size_t i = 0; i < num_threads; ++i) {
-				sum += result[i];
-			}
 			//cout << "sum: " << sum << endl;
 
 			return sum;
 		}
 
 	private:
-		static void dpSlice(ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS> *v1, 
-							ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS> *v2, 
+		static void dpSlice(T *arr1, T *arr2,
 							size_t begin, size_t end, std::shared_ptr<T[]> const &result, size_t ndx) 
 		{
 			T sum = 0.0;
 			for (size_t i = begin; i < end; ++i) {
-				sum+= v1->arr[i] * v2->arr[i];
+				sum+= arr1[i] * arr2[i];
 			}
 			//std::cout << "sum[" << ndx << "]=" << sum << std::endl;
 			result[ndx] = sum;

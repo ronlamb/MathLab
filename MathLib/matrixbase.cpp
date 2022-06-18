@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <array>
 #include <algorithm>
+#include <limits>
 #include "matrixbase.h"
 #include "mathexception.h"
 
@@ -24,10 +25,6 @@ template <typename T> void MatrixBase<T>::init() {
 	}
 }
 
-// static const T error_factor = std::numeric_limits<T>::min() * 100;
-//double X = std::numeric_limits<double>::min() * 100;
-//template const double MatrixBase<double>::error_factor = 0.0;
-// template long double MatrixBase<long double>::error_factor = std::numeric_limits<long double>::min() * 100;
 template MatrixBase<double>::MatrixBase(size_t rows, size_t columns);
 template MatrixBase<long double>::MatrixBase(size_t rows, size_t columns);
 
@@ -128,8 +125,10 @@ template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
 	for (int j = 0; j < n; ++j) {
 		for (int i = 0; i < j; ++i) {
 			T sum = arr[i][j];
+			T *loc = &arr[i][0];
 			for (int k = 0; k < i; ++k) {
-				sum -= arr[i][k] * arr[k][j];
+				//sum -= arr[i][k] * arr[k][j];
+				sum -= loc[k] * arr[k][j];
 			}
 			arr[i][j] = sum;
 		}
@@ -140,8 +139,10 @@ template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
 
 		for (int i = j; i < n; ++i) {
 			T sum = arr[i][j];
+			T *loc = &arr[i][0];
 			for (int k = 0; k < j; k++) {
-				sum -= arr[i][k] * arr[k][j];
+				//sum -= arr[i][k] * arr[k][j];
+				sum -= loc[k] * arr[k][j];
 			}
 			arr[i][j] = sum;
 
@@ -156,9 +157,10 @@ template <typename T> T MatrixBase<T>::ludcmp(T *indx) {
 		// Interchange rows if needed
 		if (j != imax) {
 			for (int k = 0; k < n; ++k) {
-				T dum = arr[imax][k];
-				arr[imax][k] = arr[j][k];
-				arr[j][k] = dum;
+				std::swap(arr[imax][k], arr[j][k]);
+				// T dum = arr[imax][k];
+				// arr[imax][k] = arr[j][k];
+				// arr[j][k] = dum;
 			}
 			det = -det;
 			scaling[imax] = scaling[j];	// also interchange the scale factor
