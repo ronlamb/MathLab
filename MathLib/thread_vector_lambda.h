@@ -25,6 +25,7 @@ namespace MathLib {
 		using MathVectorBase<T>::size;
 		using MathVectorBase<T>::arr;
 		size_t num_threads;
+		size_t slice_size = 0;
 
 		void setNumThreads() {
 			num_threads = MAX_THREADS;
@@ -42,6 +43,10 @@ namespace MathLib {
 			}
 			else if (num_slices < num_threads) {
 				num_threads = num_slices;
+			}
+
+			if (num_threads > 1) {
+				slice_size = size / num_threads;
 			}
 		}
 	public:
@@ -73,18 +78,19 @@ namespace MathLib {
 			size_t begin = 0;
 
 			if (num_threads > 1) {
-				size_t slice = size / num_threads;
-				size_t end = begin + slice;
+				size_t end = begin + slice_size;
+				T* arr2 = v.arr;
+
 				for (size_t i = 0; i < num_threads - 1; ++i) {
-					thd.push_back(std::thread([=,this,&result, &v]() {
+					thd.push_back(std::thread([=,this,&result, &arr2]() {
 						T sum = 0.0;
 						for (size_t j = begin; j < end; ++j) {
-							sum += arr[j] * v.arr[j];
+							sum += arr[j] * arr2[j];
 						}
 						result[i] = sum;
 					}));
 					begin = end;
-					end += slice;
+					end += slice_size;
 				}
 			}
 
@@ -93,7 +99,7 @@ namespace MathLib {
 			for (size_t j = begin; j < size; ++j) {
 				sum += arr[j] * v.arr[j];
 			}
-			result[num_threads - 1] = sum;
+			//result[num_threads - 1] = sum;
 
 			//std::cout << "range " << begin << " to " << size << " sum=" << sum << std::endl;
 
@@ -103,13 +109,16 @@ namespace MathLib {
 						t.join();
 					}
 				}
+				for (size_t i = 0; i < num_threads -1; ++i) {
+					sum += result[i];
+				}
 			}
 
 			// Sum up the slice results
-			sum = 0.0;
-			for (size_t i = 0; i < num_threads; ++i) {
-				sum += result[i];
-			}
+			//sum = 0.0;
+			// for (size_t i = 0; i < num_threads -1; ++i) {
+			// 	sum += result[i];
+			// }
 
 			return sum;
 		}
