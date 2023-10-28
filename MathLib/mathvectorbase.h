@@ -20,6 +20,7 @@ namespace MathLib {
 
 		// List initializer
 		MathVectorBase(const std::initializer_list<T>& list):MathVectorBase(list.size()) {
+			// arr = new T[size];
 			size_t i = 0;
 			for (auto element : list) {
 				arr[i++] = element;

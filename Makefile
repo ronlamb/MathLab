@@ -10,7 +10,7 @@ endif
 
 CPPFLAGS=-std=gnu++20 -pthread -I./yaml/yaml-cpp/include -fopenmp
 ifeq ($(uname_S), Darwin)
-	CPP = g++-11
+	CPP = g++-12
 	CPPFLAGS += -arch arm64
 	ARFLAGS = r
 else
@@ -18,6 +18,9 @@ else
 	# ARFLAGS = crf
 	ARFLAGS = rcs
 endif
+
+#export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"
+#export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"
 
 ifdef DEBUG
 	OUTDIR=debug

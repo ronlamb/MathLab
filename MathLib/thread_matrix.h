@@ -94,7 +94,7 @@ namespace MathLib {
 			if (rows != result.rows || m2.columns != result.columns) {
 				throw MathException("Result must be an " + to_string(rows) + " by" + to_string(m2.columns) + " matrix.");
 			}
-
+/*
 			for (size_t i = 0; i < rows; i++) {
 				for (size_t j = 0; j < m2.columns; j++) {
 					T sum = 0.0;
@@ -104,7 +104,7 @@ namespace MathLib {
 					result.arr[i][j] = sum;
 				}
 			}
-
+*/
 			return result;
 		}
 

@@ -55,6 +55,7 @@ namespace MathLib {
 		vectorDotProduct<ThreadVectorLambda<double, 10>>();
 		vectorDotProduct<ThreadVectorOMP<double, 10>>();
 		size_t vectorSize = 100000000;
+		//size_t vectorSize = 600000000;
 		vectorTime<MathVectorBase<double>>(vectorSize, "vector");
 		vectorTime<ThreadVector<double, 10>>(vectorSize,"thdvector");
 		vectorTime<ThreadVectorLambda<double, 10>>(vectorSize, "lambdavector");

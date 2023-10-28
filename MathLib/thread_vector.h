@@ -19,6 +19,7 @@
 #include <memory>
 #include <vector>
 
+#define ORIG 0
 namespace MathLib {
 	template <typename T, size_t MIN_SLICE_SIZE=10, size_t MAX_THREADS=0>
 	class ThreadVector : public MathVectorBase<T>
@@ -72,9 +73,13 @@ namespace MathLib {
 
 			// Split the array into num_thread slices
 			//std::shared_ptr<T[]> result = std::make_shared<T[]>(num_threads);
+			#if ORIG == 1
 			std::shared_ptr<T[]> result;
 			result = std::make_unique<T[]>(num_threads);
-			
+			#else
+			T* result;
+			result = new T[num_threads]();
+			#endif	
 			vector<std::thread> thd;
 			size_t begin = 0;
 
@@ -105,17 +110,26 @@ namespace MathLib {
 			}
 			//cout << "sum: " << sum << endl;
 
+			#if ORIG == 0
+			delete [] result;
+			#endif
 			return sum;
 		}
 
 	private:
+	#if ORIG == 1
 		static void dpSlice(ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS> *v1, 
 							ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS> *v2, 
 							size_t begin, size_t end, std::shared_ptr<T[]> const &result, size_t ndx) 
+	#else
+		static void dpSlice(ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS> *v1, 
+						ThreadVector<T, MIN_SLICE_SIZE, MAX_THREADS> *v2, 
+						size_t begin, size_t end, T *result, size_t ndx) 
+	#endif
 		{
 			T sum = 0.0;
 			for (size_t i = begin; i < end; ++i) {
-				sum+= v1->arr[i] * v2->arr[i];
+				sum += v1->arr[i] * v2->arr[i];
 			}
 			//std::cout << "sum[" << ndx << "]=" << sum << std::endl;
 			result[ndx] = sum;

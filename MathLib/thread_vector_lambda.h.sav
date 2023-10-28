@@ -70,45 +70,73 @@ namespace MathLib {
 			result = std::make_unique<T[]>(num_threads);
 			
 			vector<std::thread> thd;
-			size_t begin = 0;
+
+			T *a = arr;
+			T *b = v.arr;
+			T *end = arr;
+			end += size;
+
+			cout << "\nsize: " << size << " num_threads: " << num_threads << endl;
 
 			if (num_threads > 1) {
-				// std::cout << "THREADS = " << num_threads << std::endl;
 				size_t slice = size / num_threads;
-				size_t end = begin + slice;
-				T *b = v.arr;
+				// cout << "slice = " << slice << endl;
+				T *a_end = a;
 				for (size_t i = 0; i < num_threads - 1; ++i) {
-					thd.push_back(std::thread([=,this,&result, &b]() {
+					a_end += slice;
+					cout << "a: " << a << " b: " << b << " a_end: " << a_end << " len: " << (a_end - a) << endl;
+					thd.push_back(std::thread([=,this,&result, &a, &b]() {
 						T sum = 0.0;
-						for (size_t j = begin; j < end; ++j) {
-							sum += arr[j] * b[j];
+						while (a != a_end) {
+							sum += (*a++) * (*b++);
 						}
 						result[i] = sum;
 					}));
-		
-					begin = end;
-					end += slice;
+					a = a_end;
+					b += slice;
 				}
-			}
+			} 
 
 			// Run the last slice in the current thread
 			T sum = 0.0;
-			for (size_t j = begin; j < size; ++j) {
-				sum += arr[j] * v.arr[j];
+			cout << "outside a: " << a << " b: " << b << " end: " << end << " len: " << (end - a) << endl;
+			while (a != end) {
+				sum += (*a++) * (*b++);
 			}
+			result[num_threads - 1] = sum;
 
 			//std::cout << "range " << begin << " to " << size << " sum=" << sum << std::endl;
 
+			// if (num_threads > 1) {
+			// 	std::for_each(std::make_move_iterator(thd.begin()), std::make_move_iterator(thd.end()), [](std::thread t) 
+			// 	{
+			// 		t.join();
+			// 	});
+			// }
 			if (num_threads > 1) {
-				for (std::thread& t : thd) {
-					if (t.joinable()) {
-						t.join();
+				cout << "joining" << endl;
+				// for (std::thread& t : thd) {
+				// 	cout << "if joinable" << endl;
+				// 	if (t.joinable()) {
+				// 		cout << "  joining" << endl;
+				// 		t.join();
+ 				// 		cout << " joined" << endl;
+				// 	}
+				// }
+
+				std::for_each(thd.begin(), thd.end(), [](std::thread &t) 
+    			{
+					if (t.joinable()) { 
+        				t.join();
 					}
-				}
+				});
 			}
 
 			// Sum up the slice results
-			for (size_t i = 0; i < num_threads -1; ++i) {
+
+			cout << "summing " << endl;
+			sum = 0.0;
+			for (size_t i = 0; i < num_threads; ++i) {
 				sum += result[i];
 			}
 
