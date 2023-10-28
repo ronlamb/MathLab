@@ -71,6 +71,7 @@ namespace MathLib {
 				throw MathException(VECTOR_SIZES_MUST_BE_THE_SAME);
 			}
 
+			# Initial try of accumulate
             T sum = std::accumulate(begin, end, 0.0, [this] (size_t i)
             {
                 return arr[i]* v.arr[i];
